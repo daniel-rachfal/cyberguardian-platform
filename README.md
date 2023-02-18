@@ -1,7 +1,7 @@
 # Getting Started
 
 Clone this project to your local workspace
-### `git clone --recursive https://github.com/ppy/osu-performance`
+### `git clone --recursive https://github.com/daniel-rachfal/cyberguardian-platform/`
 
 ## Available Scripts
 
