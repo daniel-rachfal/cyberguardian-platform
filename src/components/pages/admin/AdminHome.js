@@ -13,7 +13,7 @@ function AdminHome() {
         <div>
             <h1>Admin Home Page</h1>
             <ul>
-                <li><Link to="admin/files">View All Files</Link></li>
+                <li><Link to="files">View All Files</Link></li>
             </ul>
         </div>
     );
