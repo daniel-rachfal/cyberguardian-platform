@@ -3,11 +3,13 @@ import HomePage from './components/pages/HomePage';
 import AdminHome from './components/pages/admin/AdminHome';
 import ViewAllFiles from './components/pages/admin/ViewAllFiles';
 import UploadPage from './components/pages/UploadPage';
+import Nav from './components/pages/Nav';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
+        <Nav />
         <Routes>
             <Route path="/" element={<HomePage />}/>
             <Route path="/admin" element={<AdminHome />}/>
