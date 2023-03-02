@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button } from "react-bootstrap";
 
-function SignupPage() {
+function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,4 +67,4 @@ function SignupPage() {
   );
 }
 
-export default SignupPage;
+export default SignUp;

@@ -14,6 +14,8 @@ function Nav() {
                 <li><Link to= '/'>Home</Link></li>
                 <li><Link to= '/admin'>Admin</Link></li>
                 <li><Link to= '/upload'>Upload</Link></li>
+                <li><Link to= '/signup'>Sign Up</Link></li>
+                <li><Link to= '/login'>Login</Link></li>
             </ul>
         </div>
     );
