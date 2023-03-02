@@ -32,13 +32,6 @@ function Login() {
         setButtonDisabled(event.target.value === "" || username === "");
     }
 
-    const handleSignOut = () => {
-        props.handleAuthenticated(false)
-        setUsername("");
-        setPassword("");
-        localStorage.removeItem('token');
-    }
-
     return (
 
         <div>
