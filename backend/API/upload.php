@@ -5,10 +5,10 @@ use Aws\S3\S3Client;
 
 try{
     // Create an S3 client
-    $s3client = new S3Client([
+    $s3Client = new S3Client([
         'profile' => 'default',
         'region'  => 'us-east-2',
-        'version' => '2006-03-01'
+        'version' => 'latest'
     ]);
 
     //path of file to be uploaded
@@ -20,7 +20,7 @@ try{
     //object name on aws when uploaded
     $key = 'phpuploadtest2.txt';
 
-    $result = $s3client->putObject([
+    $result = $s3Client->putObject([
         'Bucket' => $bucket,
         'Key' => $key,
         'SourceFile' => $source
@@ -28,4 +28,5 @@ try{
 } catch(S3Exception $e){
     echo $e->getMessage() . "\n";
 }
+echo $result;
 ?>
