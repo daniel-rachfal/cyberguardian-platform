@@ -21,7 +21,7 @@ class Database
             $this->dbConnection = new PDO('sqlite:'.$dbName);
             $this->dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch( PDOException $e ) {
-            echo json_encode(["Meesage: " => $e->getMessage()]);
+            echo json_encode(["Message: " => $e->getMessage()]);
             exit();
         }
      }
