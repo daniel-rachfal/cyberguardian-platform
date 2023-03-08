@@ -1,70 +1,59 @@
-import React, { useState } from "react";
-import { Container, Form, Button } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
-function SignUp() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const SignUp = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // validate input values
-    // if valid, sign up the user
-    // otherwise, display an error message
+    const response = await fetch('/signup.php', {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    console.log(data);
   };
 
   return (
-    <Container className="mt-5">
-      <h1>Sign Up</h1>
+    <div className="container mt-5">
+      <h2 className="text-center">Sign Up</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
+        <FormGroup>
+          <Form.Label>Username:</Form.Label>
+          <FormControl
             type="text"
-            placeholder="Enter username"
+            placeholder="Enter your username"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(event) => setUsername(event.target.value)}
           />
-        </Form.Group>
-
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
+        </FormGroup>
+        <FormGroup>
+          <Form.Label>Email:</Form.Label>
+          <FormControl
             type="email"
-            placeholder="Enter email"
+            placeholder="Enter your email address"
             value={email}
-            onChange={handleEmailChange}
+            onChange={(event) => setEmail(event.target.value)}
           />
-        </Form.Group>
-
-        <Form.Group controlId="formPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </FormGroup>
+        <FormGroup>
+          <Form.Label>Password:</Form.Label>
+          <FormControl
             type="password"
-            placeholder="Enter password"
+            placeholder="Enter your password"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(event) => setPassword(event.target.value)}
           />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Sign Up
-        </Button>
+        </FormGroup>
+        <Button variant="primary" type="submit" block>Sign Up</Button>
       </Form>
-    </Container>
+    </div>
   );
-}
+};
 
 export default SignUp;
