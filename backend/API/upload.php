@@ -4,7 +4,7 @@ include 'database.php';
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client; 
 
-$db = new Database("../DB/development.sqlite");
+$db = new Database("DB/development.sqlite");
 
 $queryResult = $db->executeSQL("SELECT * FROM files");
 try{
@@ -32,5 +32,5 @@ try{
 } catch(S3Exception $e){
     echo $e->getMessage() . "\n";
 }
-echo $result;
-echo $queryResult;
+//echo $result;
+print_r($queryResult);
