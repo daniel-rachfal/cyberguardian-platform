@@ -6,7 +6,12 @@ use Aws\S3\S3Client;
 
 $db = new Database("DB/development.sqlite");
 
-$queryResult = $db->executeSQL("SELECT * FROM files");
+date_default_timezone_set('Asia/Kolkata');
+$date = time();
+
+$queryResult = $db->executeSQL("INSERT INTO files 
+                              (fileName, visibility, createdBy, createdAt) 
+                              VALUES ('testFileName', 1, 1, '08/03/2023')");
 try{
     // Create an S3 client
     $s3Client = new S3Client([
