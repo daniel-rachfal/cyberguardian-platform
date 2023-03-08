@@ -13,11 +13,15 @@ function UploadPage () {
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
     const changeHandler = (event) => {
+		setIsFilePicked(false);
+		console.log("change")
 		setSelectedFile(event.target.files[0]);
 		setIsFilePicked(true);
 	};
 
     const handleSubmission = () => {
+		console.log("submitted");
+		console.log(selectedFile);
 	};
 
     return(
