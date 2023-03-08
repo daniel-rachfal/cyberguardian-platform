@@ -22,4 +22,3 @@ $request = $s3Client->createPresignedRequest($cmd, '+20 minutes');
 //get URL for request
 $presignedurl = (string)$request->getUri();
 echo($presignedurl);
-?>
