@@ -13,11 +13,45 @@ function UploadPage () {
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
     const changeHandler = (event) => {
+		setIsFilePicked(false);
+		console.log("change")
 		setSelectedFile(event.target.files[0]);
 		setIsFilePicked(true);
 	};
 
     const handleSubmission = () => {
+		console.log("submit clicked");
+		console.log(selectedFile);
+		if (isFilePicked)
+		{
+			console.log("file picked + submitted")
+			const formData = new FormData();
+			formData.append('fileName', selectedFile.name);
+
+			//log all values in formdata for testing
+			for (const value of formData.values()) 
+			{
+				console.log(value);
+			}
+
+			fetch("http://unn-w20022384.newnumyspace.co.uk/yr3/group/api/upload",
+			{
+				method: 'POST',
+				body: formData
+			})
+			.then(
+				(response) => response.json()
+			)
+			.then(
+				(json) => {
+					console.log(json);
+				}
+			)
+			.catch(
+				(e) => {
+					console.log(e.message)
+				})
+		}
 	};
 
     return(

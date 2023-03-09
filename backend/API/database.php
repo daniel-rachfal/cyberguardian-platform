@@ -40,9 +40,16 @@ class Database
         return $this->dbConnection->prepare($sql);
     }
     public function executeSQL($sql, $params=[]) { 
-        $stmt = $this->dbConnection->prepare($sql);
-        $stmt->execute($params);
+        try
+        {
+            $stmt = $this->dbConnection->prepare($sql);
+            $stmt->execute($params);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e)
+        {
+            echo "Database error! : ".$e->getMessage();
+            exit();
+        }
     }
 }
