@@ -1,25 +1,25 @@
-<?php 
+<?php
+/**
+ * uploadDB endpoint
+ * 
+ * work in progress
+ * 
+ * @author Jack Wilde w20022384
+ */ 
 include 'database.php';
+include 'endpoint.php';
 
-Class UploadDB
+Class UploadDB extends Endpoint
 {
-    public function __construct()
-    {
-        $this->upload();
-    }
-
-    private function upload()
-    {
-        $db = new Database("DB/development.sqlite");
-
+    protected function initialiseSQL() {
+        //get current unix time
         date_default_timezone_set('Europe/London');
-        //get current time, unix format
         $date = time();
 
-        $queryResult = $db->executeSQL("INSERT INTO files 
-                                    (fileName, visibility, createdBy, createdAt) 
-                                    VALUES ('testFileName', 1, 1, ".$date.")");
-        print_r($queryResult);
+        $query = "SELECT * FROM files";
+
+        $this->setSQL($query);
+        $this->setSQLParams([]);
     }
 }
 
