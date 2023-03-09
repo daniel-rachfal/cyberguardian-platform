@@ -20,15 +20,20 @@ Class UploadDB extends Endpoint
         date_default_timezone_set('Europe/London');
         $date = time();
 
-        $query = 
+        $query2="SELECT * FROM files WHERE id = :id";
+
+        $query= 
         (
         "INSERT INTO files 
         (fileName, visibility, createdBy, createdAt) 
-        VALUES ('testFileName', 1, 1, ".$date.")"
+        VALUES (:fileName, :visibility, :createdBy, ".$date.")"
         );
 
+        $params[':fileName'] = "paramtestfilename";
+        $params[':visibility'] = 1;
+        $params[':createdBy'] = 1;
         $this->setSQL($query);
-        $this->setSQLParams([]);
+        $this->setSQLParams($params);
     }
 
     protected function setFileName($fileName){
@@ -49,6 +54,10 @@ Class UploadDB extends Endpoint
 
     protected function setCreatedBy($createdBy){
         $this->createdBy = $createdBy;
+    }
+
+    protected function getCreatedBy(){
+        return $this->createdBy;
     }
 }
 
