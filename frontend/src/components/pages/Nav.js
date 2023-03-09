@@ -1,7 +1,7 @@
 import {Outlet, Link} from 'react-router-dom';
 
 /**
- * Nav Bar
+ * Placeholder Nav Bar
  * 
  * Navigation stuff
  * 
