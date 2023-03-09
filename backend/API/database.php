@@ -36,6 +36,9 @@ class Database
      * @param  array   $params  An associative array of parameters (default empty array) 
      * @return array            An associative array of the query results
      */
+    public function prepare($sql) {
+        return $this->dbConnection->prepare($sql);
+    }
     public function executeSQL($sql, $params=[]) { 
         $stmt = $this->dbConnection->prepare($sql);
         $stmt->execute($params);

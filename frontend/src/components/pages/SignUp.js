@@ -8,15 +8,16 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch('/signup.php', {
-      method: 'POST',
-      body: JSON.stringify({ username, email, password }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    const response = await fetch('/registration.php', {
+    method: 'POST',
+    body: formData
     });
-    const data = await response.json();
-    console.log(data);
+  const data = await response.json();
+  console.log(data);
   };
 
   return (

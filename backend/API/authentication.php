@@ -1,5 +1,6 @@
 <?php 
-
+define('SECRET', "R7Cgb9ruh:a3~+Y;H1XC8?`Im^BA]`");
+use FirebaseJWT\JWT;
 /**
  * Authenticate username and password
  *
@@ -12,7 +13,7 @@ class Authenticate extends Endpoint
 {
  
     public function __construct() {
-        $db = new Database("../database/chiplay.sqlite");
+        $db = new Database("DB/development.sqlite");
         $this->validateRequestMethod("POST");
         $this->validateAuthParameters();
         $this->initialiseSQL();
@@ -20,7 +21,8 @@ class Authenticate extends Endpoint
         $this->validateUsername($queryResult); 
         $this->validatePassword($queryResult);
         
-        $data = "test";
+        $data['token'] = $this->createJWT($queryResult);
+ 
         http_response_code(503);
  
         $this->setData( array(
@@ -32,7 +34,7 @@ class Authenticate extends Endpoint
  
  
     protected function initialiseSQL() {
-        $sql = "SELECT id, username AS username, password FROM account WHERE username = :username";
+        $sql = "SELECT account_id, username AS username, password FROM account WHERE username = :username";
         $this->setSQL($sql);
         $this->setSQLParams(['username'=>$_SERVER['PHP_AUTH_USER']]);
     }
@@ -64,4 +66,23 @@ class Authenticate extends Endpoint
             throw new ClientErrorException("invalid credentials", 401);
         } 
     }
+
+    private function createJWT($queryResult) {
+ 
+        $secretKey = SECRET;
+
+        $time = time();
+
+        $tokenPayload = [
+          'iat' => $time,
+          'exp' => strtotime('+1 day', $time),
+          'iss' => $_SERVER['HTTP_HOST'],
+          'id' => $queryResult[0]['account_id'],
+          'username' => $queryResult[0]['username'],
+        ];
+             
+        $jwt = JWT::encode($tokenPayload, $secretKey, 'HS256');
+        
+        return $jwt;
+      }
 }
