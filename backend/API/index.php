@@ -1,4 +1,5 @@
 <?php
+
 /**
  * no idea really
  * 
@@ -12,13 +13,18 @@ header("Access-Control-Allow-Origin: *");
 
 $url = $_SERVER['REQUEST_URI'];
 $path = parse_url($url)['path'];
+$path = str_replace("/cyberguardian-platform/backend/API/", "", $path);
 
-switch($path)
-{
-    case '/yr3/cyberguardian-platform/backend/API/upload':
-    case '/yr3/cyberguardian-platform/backend/API/upload/':
+switch ($path) {
+    case 'upload':
+    case 'upload/':
         $uploadDB = new uploadDB;
         $output = $uploadDB->getData();
+        break;
+    case "":
+        $output = array(
+            "message" => "It works!",
+        );
         break;
     default:
         throw new ClientErrorException("Path not found");
