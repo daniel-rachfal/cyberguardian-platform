@@ -40,6 +40,12 @@ Class UploadDB extends Endpoint
         $this->setSQLParams($params);
     }
 
+    private function validateRequestMethod($method) {
+        if ($_SERVER['REQUEST_METHOD'] != $method){
+            throw new ClientErrorException("Invalid request method", 405);
+        }
+    }
+
     protected function setFileName($fileName){
         $this->fileName = $fileName;
     }
