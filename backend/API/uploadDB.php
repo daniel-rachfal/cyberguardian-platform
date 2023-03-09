@@ -11,15 +11,44 @@ include 'endpoint.php';
 
 Class UploadDB extends Endpoint
 {
+    private $fileName;
+    private $visibility;
+    private $createdBy;
+
     protected function initialiseSQL() {
         //get current unix time
         date_default_timezone_set('Europe/London');
         $date = time();
 
-        $query = "SELECT * FROM files";
+        $query = 
+        (
+        "INSERT INTO files 
+        (fileName, visibility, createdBy, createdAt) 
+        VALUES ('testFileName', 1, 1, ".$date.")"
+        );
 
         $this->setSQL($query);
         $this->setSQLParams([]);
+    }
+
+    protected function setFileName($fileName){
+        $this->fileName = $fileName;
+    }
+
+    protected function getFileName(){
+        return $this->fileName;
+    }
+
+    protected function setVisibility($visibility){
+        $this->visibility = $visibility;
+    }
+
+    protected function getVisibility(){
+        return $this->visibility;
+    }
+
+    protected function setCreatedBy($createdBy){
+        $this->createdBy = $createdBy;
     }
 }
 
