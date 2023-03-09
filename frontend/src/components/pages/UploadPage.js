@@ -20,25 +20,38 @@ function UploadPage () {
 	};
 
     const handleSubmission = () => {
-		console.log("submitted");
+		console.log("submit clicked");
 		console.log(selectedFile);
+		if (isFilePicked)
+		{
+			console.log("file picked + submitted")
+			const formData = new FormData();
+			formData.append('fileName', selectedFile.name);
 
-		const formData = new FormData();
-		formData.append('fileName', selectedFile.name);
+			//log all values in formdata for testing
+			for (const value of formData.values()) 
+			{
+				console.log(value);
+			}
 
-		fetch("http://unn-w20022384.newnumyspace.co.uk/yr3/group/api/",
-        {
-        	method: 'POST',
-        	body: formData
-        })
-        .then(
-        	(response) => response.text()
-        )
-        .catch(
-        	(e) => {
-        		console.log(e.message)
-        	})
-
+			fetch("http://unn-w20022384.newnumyspace.co.uk/yr3/group/api/upload",
+			{
+				method: 'POST',
+				body: formData
+			})
+			.then(
+				(response) => response.json()
+			)
+			.then(
+				(json) => {
+					console.log(json);
+				}
+			)
+			.catch(
+				(e) => {
+					console.log(e.message)
+				})
+		}
 	};
 
     return(

@@ -33,7 +33,7 @@ Class UploadDB extends Endpoint
 
         //set PDO params
         $params = [];
-        //$params[':fileName'] = "paramtestfilename";
+        //$params[':fileName'] = $this->getFileName();
         //$params[':visibility'] = 1;
         //$params[':createdBy'] = 1;
         $this->setSQL($query);
