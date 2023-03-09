@@ -20,7 +20,7 @@ abstract class Endpoint
      */
     public function __construct() {
         //Initialising the relative path of db
-        $db = new Database("../DB/development.sqlite");
+        $db = new Database("DB/development.sqlite");
  
         // The initialiseSQL method can be overridden by
         // child classes to set the SQL as appropriate for
