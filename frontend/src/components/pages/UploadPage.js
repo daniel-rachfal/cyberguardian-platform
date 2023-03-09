@@ -22,6 +22,23 @@ function UploadPage () {
     const handleSubmission = () => {
 		console.log("submitted");
 		console.log(selectedFile);
+
+		const formData = new FormData();
+		formData.append('fileName', selectedFile.name);
+
+		fetch("http://unn-w20022384.newnumyspace.co.uk/yr3/group/api/",
+        {
+        	method: 'POST',
+        	body: formData
+        })
+        .then(
+        	(response) => response.text()
+        )
+        .catch(
+        	(e) => {
+        		console.log(e.message)
+        	})
+
 	};
 
     return(

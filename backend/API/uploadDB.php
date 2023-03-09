@@ -19,19 +19,23 @@ Class UploadDB extends Endpoint
         //get current unix time
         date_default_timezone_set('Europe/London');
         $date = time();
+        $this->setFileName($_POST['fileName']);
 
-        $query2="SELECT * FROM files WHERE id = :id";
+        //query for test purposes
+        $query="SELECT * FROM files";
 
-        $query= 
+        $query2= 
         (
         "INSERT INTO files 
         (fileName, visibility, createdBy, createdAt) 
         VALUES (:fileName, :visibility, :createdBy, ".$date.")"
         );
 
-        $params[':fileName'] = "paramtestfilename";
-        $params[':visibility'] = 1;
-        $params[':createdBy'] = 1;
+        //set PDO params
+        $params = [];
+        //$params[':fileName'] = "paramtestfilename";
+        //$params[':visibility'] = 1;
+        //$params[':createdBy'] = 1;
         $this->setSQL($query);
         $this->setSQLParams($params);
     }
