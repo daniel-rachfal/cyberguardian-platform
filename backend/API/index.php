@@ -7,6 +7,7 @@
  */
 include 'uploadDB.php';
 include 'clienterrorexception.php';
+include 'files.php';
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
@@ -21,7 +22,13 @@ switch ($path) {
         $uploadDB = new uploadDB;
         $output = $uploadDB->getData();
         break;
-    case "":
+    case 'getAllFiles':
+    case 'getAllFiles/':
+        //! Add Authentication
+        $files = new Files;
+        $output = $files->getData();
+        break;
+    case '':
         $output = array(
             "message" => "It works!",
         );
