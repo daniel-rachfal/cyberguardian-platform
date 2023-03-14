@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 /**
  * Admin View All Files Page
  * 
@@ -6,24 +7,26 @@
  * @author Daniel Rachfal
  */
 function ViewAllFiles() {
-    const files = [
-        {
-            fileName: "Potato",
-            visibility: "Public",
-            createdBy: "Daniel Rachfal",
-            createdAt: Date.now(),
-        },
-        {
-            fileName: "Potato",
-            visibility: "Private",
-            createdBy: "Daniel Rachfal",
-            createdAt: Date.now(),
-        },
-    ]
+    const [files, setFiles] = useState([]);
+    
+    // Fetch the files from the API
+    useEffect(() => {
+        //! Use a more stable link
+        const api_link = "http://localhost/cyberguardian-platform/backend/API/getAllFiles"
+        fetch (api_link)
+            .then(res => res.json())
+            .then((response) => {
+                setFiles(response['data']);
+            })
+            .catch((error) => {
+                //! Add error handling
+                console.log('Something did a bad');
+            })
+    }, []);
 
     return (
-        <div>
-            <table>
+        <div className="container">
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th>File Name</th>
@@ -34,10 +37,11 @@ function ViewAllFiles() {
                 </thead>
                 <tbody>
                     {files.map((file) => (
-                        <tr>
+                        <tr key={file.id}>
                             <td>{file.fileName}</td>
-                            <td>{file.visibility}</td>
-                            <td>{file.createdBy}</td>
+                            {/* Only capitalizes the first letter of the string */}
+                            <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
+                            <td>{file.createdByEmail}</td>
                             <td>{file.createdAt}</td>
                         </tr>
                     ))}

@@ -15,6 +15,7 @@ include 'clienterror.php';
 include 'base.php';
 include 'authentication.php';
 include 'registration.php';
+include 'files.php';
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
@@ -37,9 +38,11 @@ switch ($path) {
     case 'login':
         $output = new Authenticate($path);
         break;
-    case 'registration':
-    case '/registration':
-        $output = new Registration($path);
+    case 'getAllFiles':
+    case 'getAllFiles/':
+        //! Add Authentication
+        $files = new Files;
+        $output = $files->getData();
         break;
     default:
     $output = new ClientError("Path not found: " . $request->getPath(), 404);
