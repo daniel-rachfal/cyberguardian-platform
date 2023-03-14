@@ -1,67 +1,80 @@
 <?php
-/**
- * Registration of users
- *
- * This class will create new users when they complete
- * the sign up form and then insert and store their infromation
- * in the SQLite database.
- *
- * Author: Nikitas Kaouslidis w20006928
- */
 
-class Registration extends Endpoint
-{
-    private $username;
-    private $email;
-    private $password;
+class Registration extends Endpoint {
+    
+    public function __construct() {
+        $db = new Database("DB/development.sqlite");
+        $this->validateRequestMethod("POST");
+        $this->initialiseSQL();
+        $queryResult = $db->executeSQL($this->getSQL(), $this->getSQLParams());
 
-    public function __construct()
-    {
-        $db = new Database("/DB/development.sqlite");
-        if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
-            $this->username = trim($_POST['username']);
-            $this->email = trim($_POST['email']);
-            $this->password = trim($_POST['password']);
-        } else {
-            throw new Exception('Missing required fields');
-        }
-        $this->register();
+        $data = $_POST;
+
+        $this->setData( array(
+            "length" => 0, 
+            "message" => "success",
+            "data" => $data
+          ));
+
     }
 
-    protected function register()
-    {
-        // Check if username, email and password are valid
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $this->username)) {
-            throw new Exception('Invalid username');
-        }
-
-        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception('Invalid email');
-        }
-
-        if (strlen($this->password) < 8) {
-            throw new Exception('Password must be at least 8 characters');
-        }
-
-        return array('success' => true);
-    }
-
-    protected function initialiseSQL()
-    {
-        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+    protected function initialiseSQL() {
+        $currentDateTime = date('d-m-Y H:i:s');
+        $sql = "INSERT INTO users (username, email, password, createdAt) VALUES (:username, :email, :password, :createdAt)";
         $this->setSQL($sql);
+        $params = [];
+    
+        if (isset($_POST['username'])) {
+            $username = filter_var($_POST['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if (strlen($username) > 0) {
+                $params[':username'] = $username;
+            } 
+            else {
+                throw new ClientErrorException("invalid username", 400);
+            }
+        } 
+        else {
+            throw new ClientErrorException("username is required", 400);
+        }
+
+        if (isset($_POST['email'])) {
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $params[':email'] = $email;
+            } 
+            else {
+            throw new ClientErrorException("invalid email", 400);
+            }
+        } 
+        else {
+            throw new ClientErrorException("email is required", 400);
+        }
+
+        if (isset($_POST['password'])) {
+            $password = $_POST['password'];
+            if (strlen($password) >= 8) {
+                $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
+                $params[':password'] = $hashedpassword;
+            } 
+            else {
+                throw new ClientErrorException("invalid password", 400);
+            }
+        } 
+        else {
+            throw new ClientErrorException("password is required", 400);
+        }
+        
+        $params[':createdAt'] = $currentDateTime;
+        
+        $this->setSQL($sql);
+        $this->setSQLParams($params);
     }
 
-    public function executeRegistration()
-    {
-        $this->register();
+    private function validateRequestMethod($method) {
+        if ($_SERVER['REQUEST_METHOD'] != $method){
+            throw new ClientErrorException("invalid request method", 405);
+        }
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $registration = new Registration();
-    $response = $registration->executeRegistration();
-    header('Content-Type: application/json');
-    echo json_encode($response);
-}
 ?>
