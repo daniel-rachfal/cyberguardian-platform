@@ -36,7 +36,12 @@ switch ($path) {
         $output = new Base($path);
         break;
     case 'login':
+    case '/login':
         $output = new Authenticate($path);
+        break;
+    case 'registration':
+    case '/registration':
+        $output = new Registration($path);
         break;
     case 'getAllFiles':
     case 'getAllFiles/':
