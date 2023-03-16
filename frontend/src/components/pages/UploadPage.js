@@ -22,11 +22,13 @@ function UploadPage () {
     const handleSubmission = () => {
 		console.log("submit clicked");
 		console.log(selectedFile);
+		var e = document.getElementById("privacy");
 		if (isFilePicked)
 		{
 			console.log("file picked + submitted")
 			const formData = new FormData();
 			formData.append('fileName', selectedFile.name);
+			formData.append('visibility', e.value);
 
 			//log all values in formdata for testing
 			for (const value of formData.values()) 
@@ -70,6 +72,11 @@ function UploadPage () {
 			) : (
 				<p>Select a file to show details</p>
 			)}
+			<label htmlFor="privacy">Select privacy level:</label>
+			<select name="privacy" id="privacy">
+				<option value="1">Public</option>
+				<option value="2">Private</option>
+			</select>
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
 			</div>
