@@ -34,7 +34,7 @@ function UploadPage () {
 				console.log(value);
 			}
 
-			fetch("http://unn-w20022384.newnumyspace.co.uk/yr3/group/api/upload",
+			fetch("http://localhost/cyberguardian-platform/backend/API/upload",
 			{
 				method: 'POST',
 				body: formData

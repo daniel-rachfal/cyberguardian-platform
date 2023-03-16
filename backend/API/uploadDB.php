@@ -5,6 +5,7 @@
  * work in progress
  * 
  * @author Jack Wilde w20022384
+ * @author Daniel Rachfal
  */ 
 include 'database.php';
 include 'endpoint.php';

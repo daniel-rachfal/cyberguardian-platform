@@ -29,8 +29,7 @@ try {
     switch ($path) {
         case 'upload':
         case 'upload/':
-            $uploadDB = new uploadDB;
-            //$output = $uploadDB->getData();
+            $output = new uploadDB;
             break;
         case 'index':
         case '/index':
