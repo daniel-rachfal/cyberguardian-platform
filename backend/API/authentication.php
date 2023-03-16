@@ -86,3 +86,4 @@ class Authenticate extends Endpoint
         return $jwt;
       }
 }
+?>
