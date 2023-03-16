@@ -14,18 +14,19 @@ function UploadPage () {
 
     const changeHandler = (event) => {
 		setIsFilePicked(false);
-		console.log("change")
-		setSelectedFile(event.target.files[0]);
-		setIsFilePicked(true);
+		console.log("change");
+		if(!event.target.files || event.target.files.length)
+		{
+			setSelectedFile(event.target.files[0]);
+			setIsFilePicked(true);
+		}
 	};
 
     const handleSubmission = () => {
-		console.log("submit clicked");
 		console.log(selectedFile);
 		var e = document.getElementById("privacy");
 		if (isFilePicked)
 		{
-			console.log("file picked + submitted")
 			const formData = new FormData();
 			formData.append('fileName', selectedFile.name);
 			formData.append('visibility', e.value);
