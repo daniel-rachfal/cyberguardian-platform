@@ -4,6 +4,7 @@
  * Prototype endpoint for locally saving uploaded files  
  * 
  * @author Daniel Rachfal
+ * @link https://www.filestack.com/fileschool/react/react-file-upload/
  */
 class UploadPrototype
 {
