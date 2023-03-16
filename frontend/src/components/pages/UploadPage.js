@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 /**
  * Upload Page
@@ -32,12 +33,13 @@ function UploadPage () {
 			formData.append('visibility', e.value);
 
 			//log all values in formdata for testing
+			console.log("formdata values:")
 			for (const value of formData.values()) 
 			{
 				console.log(value);
 			}
 
-			fetch("http://localhost/cyberguardian-platform/backend/API/upload",
+			/*fetch("http://localhost/cyberguardian-platform/backend/API/upload",
 			{
 				method: 'POST',
 				body: formData
@@ -53,7 +55,13 @@ function UploadPage () {
 			.catch(
 				(e) => {
 					console.log(e.message)
-				})
+				})*/
+
+			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
+
+			axios.post(url,formData).then((response) => {
+				console.log(response.data);
+			});
 		}
 	};
 
