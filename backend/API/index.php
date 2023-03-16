@@ -7,6 +7,7 @@
  */
 include 'uploadDB.php';
 include 'clienterrorexception.php';
+include 'uploadPrototype.php';
 include 'files.php';
 
 header("Content-Type: application/json; charset=UTF-8");
@@ -27,6 +28,10 @@ switch ($path) {
         //! Add Authentication
         $files = new Files;
         $output = $files->getData();
+        break;
+    case 'uploadPrototype':
+        $proto = new UploadPrototype;
+        $output = $proto->uploadFile();
         break;
     case '':
         $output = array(

@@ -7,6 +7,7 @@ import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import Nav from './components/pages/Nav';
 import { Routes, Route } from 'react-router-dom';
+import UploadPagePrototype from './components/pages/UploadPagePrototype';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/uploadPrototype" element={<UploadPagePrototype />} />
         </Routes>
     </div>
   );
