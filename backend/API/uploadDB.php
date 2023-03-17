@@ -43,6 +43,38 @@ Class UploadDB extends Endpoint
         $this->setSQLParams($params);
     }
 
+    public function uploadFile()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']))
+        {
+            //get file data
+            $file = $_FILES['file'];
+            $fileName = $_POST['fileName'];
+
+            //specify upload dir
+            $uploadDir = 'uploads/';
+
+            // Create the upload directory if it doesn't exist
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            //specify file path
+            $filePath = $uploadDir . basename($fileName);
+
+            // Move the file to the upload directory
+            if (move_uploaded_file($file['tmp_name'], $filePath)) {
+                return array(
+                    "message" => 'File uploaded successfully.'
+                );
+            } else {
+                return array(
+                    "message" => 'Error uploading file.'
+                );
+            }
+        }
+    }
+
     private function validateRequestMethod($method) {
         if ($_SERVER['REQUEST_METHOD'] != $method){
             throw new ClientErrorException("Invalid request method", 405);

@@ -30,6 +30,7 @@ try {
         case 'upload':
         case 'upload/':
             $output = new uploadDB;
+            $output->uploadFile();
             break;
         case 'index':
         case '/index':

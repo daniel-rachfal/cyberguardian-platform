@@ -29,6 +29,7 @@ function UploadPage () {
 		if (isFilePicked)
 		{
 			const formData = new FormData();
+			formData.append('file', selectedFile);
 			formData.append('fileName', selectedFile.name);
 			formData.append('visibility', e.value);
 
@@ -39,27 +40,14 @@ function UploadPage () {
 				console.log(value);
 			}
 
-			/*fetch("http://localhost/cyberguardian-platform/backend/API/upload",
-			{
-				method: 'POST',
-				body: formData
-			})
-			.then(
-				(response) => response.json()
-			)
-			.then(
-				(json) => {
-					console.log(json);
-				}
-			)
-			.catch(
-				(e) => {
-					console.log(e.message)
-				})*/
-
 			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
+			const config = {
+				headers: {
+					'content-type' : 'multipart/form-data',
+				}
+			}
 
-			axios.post(url,formData).then((response) => {
+			axios.post(url, formData, config).then((response) => {
 				console.log(response.data);
 			});
 		}
