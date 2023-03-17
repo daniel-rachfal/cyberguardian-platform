@@ -11,7 +11,6 @@ error_reporting(E_ALL);
  */
 include 'uploadDB.php';
 include 'clienterrorexception.php';
-include 'uploadPrototype.php';
 include 'clienterror.php';
 include 'base.php';
 include 'authentication.php';

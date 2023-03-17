@@ -7,6 +7,8 @@ import axios from 'axios';
  * Page for uploading files
  * 
  * @author Jack Wilde w20022384
+ * @author Daniel Rachfal
+ * @link https://www.filestack.com/fileschool/react/react-file-upload/
  */
 function UploadPage () {
 
