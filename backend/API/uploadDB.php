@@ -64,9 +64,12 @@ Class UploadDB extends Endpoint
 
             // Move the file to the upload directory
             if (move_uploaded_file($file['tmp_name'], $filePath)) {
-                return array(
-                    "message" => 'File uploaded successfully.'
-                );
+                $data[0] = "File uploaded successfully";
+                $this->setData(array(
+                    "data" => $data,
+                    "length" => count($data),
+                    "message" => "Success"
+                ));
             } else {
                 return array(
                     "message" => 'Error uploading file.'
