@@ -16,8 +16,6 @@ function UploadPage () {
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
     const changeHandler = (event) => {
-		setIsFilePicked(false);
-		console.log("change");
 		if(!event.target.files || event.target.files.length)
 		{
 			setSelectedFile(event.target.files[0]);
@@ -26,22 +24,16 @@ function UploadPage () {
 	};
 
     const handleSubmission = () => {
-		console.log(selectedFile);
 		var e = document.getElementById("privacy");
 		if (isFilePicked)
 		{
+			//put file data in formData object
 			const formData = new FormData();
 			formData.append('file', selectedFile);
 			formData.append('fileName', selectedFile.name);
 			formData.append('visibility', e.value);
 
-			//log all values in formdata for testing
-			console.log("formdata values:")
-			for (const value of formData.values()) 
-			{
-				console.log(value);
-			}
-
+			//request options
 			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
 			const config = {
 				headers: {
@@ -49,6 +41,7 @@ function UploadPage () {
 				}
 			}
 
+			//send request to API
 			axios.post(url, formData, config).then((response) => {
 				console.log(response.data);
 			});

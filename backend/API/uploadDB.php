@@ -24,9 +24,6 @@ Class UploadDB extends Endpoint
         $this->setFileName($_POST['fileName']);
         $this->setVisibility($_POST['visibility']);
 
-        //query for test purposes
-        $query2="SELECT * FROM files";
-
         $query= 
         (
         "INSERT INTO files 
@@ -70,10 +67,15 @@ Class UploadDB extends Endpoint
                     "length" => count($data),
                     "message" => "Success"
                 ));
-            } else {
-                return array(
-                    "message" => 'Error uploading file.'
-                );
+            } 
+            else 
+            {
+                $data[0] = "Error uploading file";
+                $this->setData(array(
+                    "data" => $data,
+                    "length" => count($data),
+                    "message" => "Error"
+                ));
             }
         }
     }
