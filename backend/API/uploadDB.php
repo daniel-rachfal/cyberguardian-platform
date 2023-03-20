@@ -5,6 +5,7 @@
  * work in progress
  * 
  * @author Jack Wilde w20022384
+ * @author Daniel Rachfal
  */ 
 include 'database.php';
 include 'endpoint.php';
@@ -19,12 +20,11 @@ Class UploadDB extends Endpoint
         //get current unix time
         date_default_timezone_set('Europe/London');
         $date = time();
+
         $this->setFileName($_POST['fileName']);
+        $this->setVisibility($_POST['visibility']);
 
-        //query for test purposes
-        $query="SELECT * FROM files";
-
-        $query2= 
+        $query= 
         (
         "INSERT INTO files 
         (fileName, visibility, createdBy, createdAt) 
@@ -33,16 +33,50 @@ Class UploadDB extends Endpoint
 
         //set PDO params
         $params = [];
-        //$params[':fileName'] = $this->getFileName();
-        //$params[':visibility'] = 1;
-        //$params[':createdBy'] = 1;
+        $params[':fileName'] = $this->getFileName();
+        $params[':visibility'] = $this->getVisibility();
+        $params[':createdBy'] = 1;
         $this->setSQL($query);
         $this->setSQLParams($params);
     }
 
-    private function validateRequestMethod($method) {
-        if ($_SERVER['REQUEST_METHOD'] != $method){
-            throw new ClientErrorException("Invalid request method", 405);
+    public function uploadFile()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']))
+        {
+            //get file data
+            $file = $_FILES['file'];
+            $fileName = $_POST['fileName'];
+
+            //specify upload dir
+            $uploadDir = 'uploads/';
+
+            // Create the upload directory if it doesn't exist
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            //specify file path
+            $filePath = $uploadDir . basename($fileName);
+
+            // Move the file to the upload directory
+            if (move_uploaded_file($file['tmp_name'], $filePath)) {
+                $data[0] = "File uploaded successfully";
+                $this->setData(array(
+                    "data" => $data,
+                    "length" => count($data),
+                    "message" => "Success"
+                ));
+            } 
+            else 
+            {
+                $data[0] = "Error uploading file";
+                $this->setData(array(
+                    "data" => $data,
+                    "length" => count($data),
+                    "message" => "Error"
+                ));
+            }
         }
     }
 

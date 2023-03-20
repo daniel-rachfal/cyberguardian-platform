@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 
 /**
  * Upload Page
@@ -6,6 +7,8 @@ import React, {useState} from 'react';
  * Page for uploading files
  * 
  * @author Jack Wilde w20022384
+ * @author Daniel Rachfal
+ * @link https://www.filestack.com/fileschool/react/react-file-upload/
  */
 function UploadPage () {
 
@@ -13,44 +16,35 @@ function UploadPage () {
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
     const changeHandler = (event) => {
-		setIsFilePicked(false);
-		console.log("change")
-		setSelectedFile(event.target.files[0]);
-		setIsFilePicked(true);
+		if(!event.target.files || event.target.files.length)
+		{
+			setSelectedFile(event.target.files[0]);
+			setIsFilePicked(true);
+		}
 	};
 
     const handleSubmission = () => {
-		console.log("submit clicked");
-		console.log(selectedFile);
+		var e = document.getElementById("privacy");
 		if (isFilePicked)
 		{
-			console.log("file picked + submitted")
+			//put file data in formData object
 			const formData = new FormData();
+			formData.append('file', selectedFile);
 			formData.append('fileName', selectedFile.name);
+			formData.append('visibility', e.value);
 
-			//log all values in formdata for testing
-			for (const value of formData.values()) 
-			{
-				console.log(value);
+			//request options
+			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
+			const config = {
+				headers: {
+					'content-type' : 'multipart/form-data',
+				}
 			}
 
-			fetch("http://unn-w20022384.newnumyspace.co.uk/yr3/group/api/upload",
-			{
-				method: 'POST',
-				body: formData
-			})
-			.then(
-				(response) => response.json()
-			)
-			.then(
-				(json) => {
-					console.log(json);
-				}
-			)
-			.catch(
-				(e) => {
-					console.log(e.message)
-				})
+			//send request to API
+			axios.post(url, formData, config).then((response) => {
+				console.log(response.data);
+			});
 		}
 	};
 
@@ -70,6 +64,11 @@ function UploadPage () {
 			) : (
 				<p>Select a file to show details</p>
 			)}
+			<label htmlFor="privacy">Select privacy level:</label>
+			<select name="privacy" id="privacy">
+				<option value="1">Public</option>
+				<option value="2">Private</option>
+			</select>
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
 			</div>

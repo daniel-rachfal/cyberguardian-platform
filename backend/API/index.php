@@ -25,37 +25,35 @@ $path = parse_url($url)['path'];
 $path = str_replace("/cyberguardian-platform/backend/API/", "", $path);
 
 try {
-switch ($path) {
-    case 'upload':
-    case 'upload/':
-        $uploadDB = new uploadDB;
-        //$output = $uploadDB->getData();
-        break;
-    case 'index':
-    case '/index':
-        $output = new Base($path);
-        break;
-    case 'login':
-    case '/login':
-        $output = new Authenticate($path);
-        break;
-    case 'registration':
-    case '/registration':
-        $output = new Registration($path);
-        break;
-    case 'getAllFiles':
-    case 'getAllFiles/':
-        //! Add Authentication
-        $files = new Files;
-        $output = $files->getData();
-        break;
-    default:
-    $output = new ClientError("Path not found: " . $request->getPath(), 404);
-}
-$data = $output->getData();
-echo json_encode($data);
-}
-
-catch (ClientErrorException $e){
+    switch ($path) {
+        case 'upload':
+        case 'upload/':
+            $output = new uploadDB;
+            $output->uploadFile();
+            break;
+        case 'index':
+        case '/index':
+            $output = new Base($path);
+            break;
+        case 'login':
+        case '/login':
+            $output = new Authenticate($path);
+            break;
+        case 'registration':
+        case '/registration':
+            $output = new Registration($path);
+            break;
+        case 'getAllFiles':
+        case 'getAllFiles/':
+            //! Add Authentication
+            $files = new Files;
+            $output = $files->getData();
+            break;
+        default:
+            $output = new ClientError("Path not found: " . $request->getPath(), 404);
+    }
+    $data = $output->getData();
+    echo json_encode($data);
+} catch (ClientErrorException $e) {
     $endpoint = new ClientError($e->getMessage(), $e->getCode());
 }
