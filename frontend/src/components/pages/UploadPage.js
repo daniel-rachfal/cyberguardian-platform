@@ -28,8 +28,11 @@ function UploadPage () {
 		//if a file has been selected
 		if (isFilePicked)
 		{
-			//filetype validation
-			if(selectedFile.type == "application/pdf")
+			//filetype validation(pdf/pptx/docx/doc)
+			if(selectedFile.type === "application/pdf" 
+			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" 
+			|| selectedFile.type === "application/msword")
 			{
 				console.log("file whitelist pass");
 			}
@@ -42,7 +45,7 @@ function UploadPage () {
 			formData.append('file', selectedFile);
 			formData.append('fileName', selectedFile.name);
 			formData.append('visibility', vis.value);
-
+			console.log("file type:" + selectedFile.type);
 			
 			//request options
 			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
