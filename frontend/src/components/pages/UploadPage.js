@@ -24,15 +24,26 @@ function UploadPage () {
 	};
 
     const handleSubmission = () => {
-		var e = document.getElementById("privacy");
+		var vis = document.getElementById("privacy");
+		//if a file has been selected
 		if (isFilePicked)
 		{
+			//filetype validation
+			if(selectedFile.type == "application/pdf")
+			{
+				console.log("file whitelist pass");
+			}
+			else
+			{
+				console.log("file type not allowed!");
+			}
 			//put file data in formData object
 			const formData = new FormData();
 			formData.append('file', selectedFile);
 			formData.append('fileName', selectedFile.name);
-			formData.append('visibility', e.value);
+			formData.append('visibility', vis.value);
 
+			
 			//request options
 			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
 			const config = {
