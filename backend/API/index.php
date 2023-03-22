@@ -50,7 +50,7 @@ try {
             $output = $files->getData();
             break;
         default:
-            $output = new ClientError("Path not found: " . $request->getPath(), 404);
+            $output = new ClientError("Path not found: " . $path, 404);
     }
     $data = $output->getData();
     echo json_encode($data);
