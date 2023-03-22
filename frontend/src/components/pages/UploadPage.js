@@ -24,15 +24,29 @@ function UploadPage () {
 	};
 
     const handleSubmission = () => {
-		var e = document.getElementById("privacy");
+		var vis = document.getElementById("privacy");
+		//if a file has been selected
 		if (isFilePicked)
 		{
+			//filetype validation(pdf/pptx/docx/doc)
+			if(selectedFile.type === "application/pdf" 
+			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" 
+			|| selectedFile.type === "application/msword")
+			{
+				console.log("file whitelist pass");
+			}
+			else
+			{
+				console.log("file type not allowed!");
+			}
 			//put file data in formData object
 			const formData = new FormData();
 			formData.append('file', selectedFile);
 			formData.append('fileName', selectedFile.name);
-			formData.append('visibility', e.value);
-
+			formData.append('visibility', vis.value);
+			console.log("file type:" + selectedFile.type);
+			
 			//request options
 			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
 			const config = {
