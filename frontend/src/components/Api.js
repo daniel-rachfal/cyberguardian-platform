@@ -1,0 +1,1 @@
+export const BASE_API_URL = 'http://localhost/cyberguardian-platform/backend/API';
