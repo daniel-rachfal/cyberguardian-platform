@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { BASE_API_URL } from '../../Api.js';
 /**
  * Admin View All Files Page
  * 
@@ -13,7 +12,7 @@ function FileVisibility(props) {
 
     useEffect(() => {
         if (selectedOption !== currentVisibility) {
-            fetch("${BASE_API_URL}/updateFileVisibility", {
+            fetch("http://localhost/cyberguardian-platform/backend/API/updateFileVisibility", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
