@@ -19,6 +19,11 @@ include 'files.php';
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    die();
+}
 
 $url = $_SERVER['REQUEST_URI'];
 $path = parse_url($url)['path'];
@@ -43,12 +48,28 @@ try {
         case '/registration':
             $output = new Registration($path);
             break;
-        case 'getAllFiles':
-        case 'getAllFiles/':
-            //! Add Authentication
-            $files = new Files;
-            $output = $files->getData();
+            // Admin
+        case 'files':
+        case 'files/':
+            $output = new Files;
+            $output->getFiles();
             break;
+        case 'file':
+        case 'file/':
+            $output = new Files;
+            $output->getFile();
+            break;
+        case 'deleteFile':
+        case 'deleteFile/':
+            $output = new Files;
+            $output->deleteFile();
+            break;
+        case 'updateFileVisibility':
+        case 'updateFileVisibility/':
+            $output = new Files;
+            $output->updateFileVisibility();
+            break;
+            // Invalid Path
         default:
             $output = new ClientError("Path not found: " . $path, 404);
     }
