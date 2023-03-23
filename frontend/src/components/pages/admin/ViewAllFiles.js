@@ -12,7 +12,7 @@ function FileVisibility(props) {
 
     useEffect(() => {
         if (selectedOption !== currentVisibility) {
-            fetch("http://localhost/cyberguardian-platform/backend/API/updateFileVisibility", {
+            fetch("${BASE_API_URL/updateFileVisibility", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
