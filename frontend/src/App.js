@@ -17,6 +17,7 @@ function App() {
             <Route path="/admin" element={<AdminHome />}/>
             <Route path="/admin/files" element={<ViewAllFiles />}/>
             <Route path="/upload" element={<UploadPage />} />
+            <Route path="/preview" element={<PreviewPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
         </Routes>
