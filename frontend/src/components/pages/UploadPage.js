@@ -56,6 +56,7 @@ function UploadPage () {
 					console.log(response.data);
 				});
 			}
+			//file isn't a suitable type
 			else
 			{
 				console.log("file type not allowed!");
@@ -87,6 +88,9 @@ function UploadPage () {
 			</select>
 			<div>
 				<button onClick={handleSubmission}>Submit</button>
+			</div>
+			<div id="uploadFeedback">
+
 			</div>
         </div>
     );
