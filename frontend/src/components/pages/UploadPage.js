@@ -63,6 +63,11 @@ function UploadPage () {
 			}
 			
 		}
+		//if no file selected
+		else
+		{
+			console.log("please select a file!");
+		}
 	};
 
     return(
