@@ -35,30 +35,32 @@ function UploadPage () {
 			|| selectedFile.type === "application/msword")
 			{
 				console.log("file whitelist pass");
+
+				//put file data in formData object
+				const formData = new FormData();
+				formData.append('file', selectedFile);
+				formData.append('fileName', selectedFile.name);
+				formData.append('visibility', vis.value);
+				console.log("file type:" + selectedFile.type);
+				
+				//request options
+				const url = "http://localhost/cyberguardian-platform/backend/API/upload";
+				const config = {
+					headers: {
+						'content-type' : 'multipart/form-data',
+					}
+				}
+
+				//send request to API
+				axios.post(url, formData, config).then((response) => {
+					console.log(response.data);
+				});
 			}
 			else
 			{
 				console.log("file type not allowed!");
 			}
-			//put file data in formData object
-			const formData = new FormData();
-			formData.append('file', selectedFile);
-			formData.append('fileName', selectedFile.name);
-			formData.append('visibility', vis.value);
-			console.log("file type:" + selectedFile.type);
 			
-			//request options
-			const url = "http://localhost/cyberguardian-platform/backend/API/upload";
-			const config = {
-				headers: {
-					'content-type' : 'multipart/form-data',
-				}
-			}
-
-			//send request to API
-			axios.post(url, formData, config).then((response) => {
-				console.log(response.data);
-			});
 		}
 	};
 
