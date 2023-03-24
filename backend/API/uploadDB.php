@@ -21,6 +21,11 @@ Class UploadDB extends Endpoint
         date_default_timezone_set('Europe/London');
         $date = time();
 
+        //if request isnt post, kill
+        if($_SERVER['REQUEST_METHOD'] != 'POST')
+        {
+            die();
+        }
         $this->setFileName($_POST['fileName']);
         $this->setVisibility($_POST['visibility']);
 
