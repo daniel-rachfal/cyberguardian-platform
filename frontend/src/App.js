@@ -6,6 +6,7 @@ import UploadPage from './components/pages/UploadPage';
 import SignUp from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import Nav from './components/pages/Nav';
+import PreviewPage from './components/pages/PreviewPage';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {

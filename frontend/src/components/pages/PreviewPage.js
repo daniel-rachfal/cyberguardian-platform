@@ -10,6 +10,8 @@ import { Logger } from "logging-library";
 import FileViewer from "react-file-viewer";
 import { CustomErrorComponent } from "custom-error";
 
+import axios from 'axios';
+
 const filePNG = "cat.jpg";
 const typePNG = "jpg";
 const file = "Hello.pdf";
@@ -20,6 +22,7 @@ const type = "pdf";
 // const type = "docx";
 // const file = "new_user_credentials.csv";
 // const type = "csv";
+
 function PreviewPage () {
 //const App = () => {
   const [view, setView] = useState(false);
@@ -61,7 +64,7 @@ function PreviewPage () {
   );
 };
 
-export default App;
+export default PreviewPage;
 
 //https://blog.devgenius.io/how-to-use-react-file-previewer-da7427ec1715
 
