@@ -20,8 +20,8 @@ const type = "pdf";
 // const type = "docx";
 // const file = "new_user_credentials.csv";
 // const type = "csv";
-
-const App = () => {
+function PreviewPage () {
+//const App = () => {
   const [view, setView] = useState(false);
   const [viewImage, setView2] = useState(false);
 
