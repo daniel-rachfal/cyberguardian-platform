@@ -76,12 +76,7 @@ function UploadPage () {
             <input type="file" name="file" onChange={changeHandler} />
             {isFilePicked ? (
 				<div>
-					<p>File name: {selectedFile.name}</p>
 					<p>File type: {selectedFile.type}</p>
-					<p>
-						lastModifiedDate:{' '}
-						{selectedFile.lastModifiedDate.toLocaleDateString()}
-					</p>
 				</div>
 			) : (
 				<p>Select a file to show details</p>
