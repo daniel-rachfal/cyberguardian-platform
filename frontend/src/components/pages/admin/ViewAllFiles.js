@@ -21,7 +21,6 @@ function FileVisibility(props) {
     useEffect(() => {
         if (selectedOption !== currentVisibility) {
             const bodyString = "file_id=" + props.file_id + "&visibility=" + visibilityMap[selectedOption]
-            console.log(bodyString)
             fetch(BASE_API_URL + "/updateFileVisibility", {
                 method: "POST",
                 headers: {
@@ -31,7 +30,6 @@ function FileVisibility(props) {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    console.log(data);
                     props.onSuccess("Visibility changed");
                 })
             }
