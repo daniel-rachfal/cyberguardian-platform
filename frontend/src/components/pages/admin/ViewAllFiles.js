@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { BASE_API_URL } from '../../Api.js'
 /**
  * Admin View All Files Page
  * 
@@ -12,7 +13,7 @@ function FileVisibility(props) {
 
     useEffect(() => {
         if (selectedOption !== currentVisibility) {
-            fetch("${BASE_API_URL/updateFileVisibility", {
+            fetch(BASE_API_URL + "/updateFileVisibility", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,8 +65,7 @@ function ViewAllFiles() {
 
     // Fetch the files from the API
     useEffect(() => {
-        const api_link = "${BASE_API_URL/files"
-        fetch (api_link)
+        fetch (BASE_API_URL + "/files")
             .then((res) => res.json())
             .then((response) => {
                 setFiles(response['data']);
@@ -82,9 +82,9 @@ function ViewAllFiles() {
                     View All Files
                 </div>
                 <div className="card-body">
-                    <div className="bg-danger rounded">
-                        <p className="p-2 fw-bold">{errorMessage}</p>
-                    </div>
+                    {errorMessage !== "" ? <div className="bg-danger rounded">
+                        <p className="p-2 fw-bold">{errorMessage}</p> 
+                    </div> : null}
                     <table className="table table-striped">
                         <thead>
                             <tr>
