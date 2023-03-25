@@ -9,9 +9,9 @@ import Moment from 'react-moment';
  * 
  * @author Daniel Rachfal
  */
-function FileVisibility(props) {
-    const [selectedOption, setSelectedOption] = useState(props.visibility);
-    const [currentVisibility, setCurrentVisibility] = useState(props.visibility);
+function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
+    const [selectedOption, setSelectedOption] = useState(visibility);
+    const [currentVisibility, setCurrentVisibility] = useState(visibility);
 
     const visibilityMap = {
         'PUBLIC': 1,
@@ -20,8 +20,8 @@ function FileVisibility(props) {
 
     useEffect(() => {
         if (selectedOption !== currentVisibility) {
-            const bodyString = "file_id=" + props.file_id + "&visibility=" + visibilityMap[selectedOption]
-            fetch(BASE_API_URL + "/updateFileVisibility", {
+            const bodyString = "file_id=" + fileId + "&visibility=" + visibilityMap[selectedOption]
+            fetch(`${BASE_API_URL}/updateFileVisibility`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -30,8 +30,11 @@ function FileVisibility(props) {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    props.onSuccess("Visibility changed");
+                    onSuccess("Visibility changed");
                 })
+                .catch((error) => {
+                    onFailure("Something went wrong when changing file visibility")
+                  });
             }
     }, [selectedOption]);
 
@@ -50,6 +53,7 @@ function FileVisibility(props) {
             id="visibility-select"
             value={selectedOption}
             onChange={handleSelectChange}
+            className="form-select form-select-sm"
           >
             {options.map((option) => (
               <option key={option.value} value={option.value}>
@@ -61,17 +65,61 @@ function FileVisibility(props) {
       );
 }
 
+function DeleteButton({ fileId, onDelete, onFailure }) {
+    const [isDeleting, setIsDeleting] = useState(false);
+  
+    const handleDelete = () => {
+      setIsDeleting(true);
+
+      if (!window.confirm("Are you sure you want to delete this file?"))
+      {
+        setIsDeleting(false);
+        return;
+      }
+
+      fetch(`${BASE_API_URL}/deleteFile`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `file_id=${fileId}` 
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setIsDeleting(false);
+          onDelete("File deleted successfully", fileId);
+        })
+        .catch((error) => {
+          setIsDeleting(false);
+          onFailure("Something went wrong when attempting to delete the file")
+        });
+    };
+  
+    return (
+      <button
+        className="btn btn-danger btn-sm"
+        onClick={handleDelete}
+        disabled={isDeleting}
+      >
+        {isDeleting ? 'Deleting...' : 'Delete'}
+      </button>
+    );
+  }
+
 function ViewAllFiles() {
     const [files, setFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); 
-    const handleSuccessMessage = (message) => {
-        setSuccessMessage(message);
+
+    const handleDelete = (message, fileId) => {
+        const updatedFiles = files.filter((file) => file.id !== fileId);
+        setFiles(updatedFiles);
+        setSuccessMessage(message)
     }
 
     // Fetch the files from the API
     useEffect(() => {
-        fetch (BASE_API_URL + "/files")
+        fetch (`${BASE_API_URL}/files`)
             .then((res) => res.json())
             .then((response) => {
                 setFiles(response['data']);
@@ -114,13 +162,19 @@ function ViewAllFiles() {
                                     {/* Only capitalizes the first letter of the string */}
                                     <td style={{textTransform: 'capitalize'}}>
                                         <FileVisibility
-                                            file_id={file.id}
+                                            fileId={file.id}
                                             visibility={file.visibility}
-                                            onSuccess={handleSuccessMessage}
+                                            onSuccess={setSuccessMessage}
+                                            onFailure={setErrorMessage}
                                         />
                                     </td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
+                                    <td><DeleteButton 
+                                        fileId={file.id}
+                                        onDelete={handleDelete}
+                                        onFailure={setErrorMessage}
+                                    /></td>
                                 </tr>
                             ))}
                         </tbody>
