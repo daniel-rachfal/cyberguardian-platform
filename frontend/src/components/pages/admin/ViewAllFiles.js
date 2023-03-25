@@ -60,19 +60,18 @@ function FileVisibility(props) {
 
 function ViewAllFiles() {
     const [files, setFiles] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
     // Fetch the files from the API
     useEffect(() => {
-        //! Use a more stable link
-        const api_link = "http://localhost/cyberguardian-platform/backend/API/files"
+        const api_link = "${BASE_API_URL/files"
         fetch (api_link)
-            .then(res => res.json())
+            .then((res) => res.json())
             .then((response) => {
                 setFiles(response['data']);
             })
             .catch((error) => {
-                //! Add error handling
-                console.log('Something did a bad');
+                setErrorMessage("Something has went wrong when fetching the files. Please contact your administrator for help");
             })
     }, []);
 
@@ -83,6 +82,9 @@ function ViewAllFiles() {
                     View All Files
                 </div>
                 <div className="card-body">
+                    <div className="bg-danger rounded">
+                        <p className="p-2 fw-bold">{errorMessage}</p>
+                    </div>
                     <table className="table table-striped">
                         <thead>
                             <tr>
