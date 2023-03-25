@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { BASE_API_URL } from '../../Api.js'
+import { BASE_API_URL } from '../../Api.js';
+import Moment from 'react-moment';
+
 /**
  * Admin View All Files Page
  * 
@@ -107,7 +109,7 @@ function ViewAllFiles() {
                                         />
                                     </td>
                                     <td>{file.createdByEmail}</td>
-                                    <td>{file.createdAt}</td>
+                                    <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
                                 </tr>
                             ))}
                         </tbody>
