@@ -13,25 +13,27 @@ function FileVisibility(props) {
     const [selectedOption, setSelectedOption] = useState(props.visibility);
     const [currentVisibility, setCurrentVisibility] = useState(props.visibility);
 
+    const visibilityMap = {
+        'PUBLIC': 1,
+        'PRIVATE': 2
+    };
+
     useEffect(() => {
         if (selectedOption !== currentVisibility) {
+            const bodyString = "file_id=" + props.file_id + "&visibility=" + visibilityMap[selectedOption]
+            console.log(bodyString)
             fetch(BASE_API_URL + "/updateFileVisibility", {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify({
-                    file_id: props.file_id,
-                    visibility: selectedOption,
-                }),
+                body: bodyString
             })
-                .then((response) => {
-                    return response.json();
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    props.onSuccess("Visibility changed");
                 })
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => console.log(error))
             }
     }, [selectedOption]);
 
@@ -64,6 +66,10 @@ function FileVisibility(props) {
 function ViewAllFiles() {
     const [files, setFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState(""); 
+    const handleSuccessMessage = (message) => {
+        setSuccessMessage(message);
+    }
 
     // Fetch the files from the API
     useEffect(() => {
@@ -84,7 +90,13 @@ function ViewAllFiles() {
                     View All Files
                 </div>
                 <div className="card-body">
-                    {errorMessage !== "" ? <div className="bg-danger rounded">
+                    {/* Only render success message and error message if they're not null */}
+                    {successMessage !== "" ? 
+                    <div className="bg-success rounded">
+                        <p className="p-2 fw-bold text-light">{successMessage}</p>
+                    </div> : null}
+                    {errorMessage !== "" ? 
+                    <div className="bg-danger rounded">
                         <p className="p-2 fw-bold">{errorMessage}</p> 
                     </div> : null}
                     <table className="table table-striped">
@@ -106,6 +118,7 @@ function ViewAllFiles() {
                                         <FileVisibility
                                             file_id={file.id}
                                             visibility={file.visibility}
+                                            onSuccess={handleSuccessMessage}
                                         />
                                     </td>
                                     <td>{file.createdByEmail}</td>
