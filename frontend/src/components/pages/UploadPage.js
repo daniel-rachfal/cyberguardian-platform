@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { BASE_API_URL } from '../Api.js';
 
 /**
  * Upload Page
@@ -53,7 +54,7 @@ function UploadPage (props) {
 				console.log("file type:" + selectedFile.type);
 				
 				//request options
-				const url = "http://localhost/cyberguardian-platform/backend/API/upload";
+				const url = BASE_API_URL + "/upload";
 				const config = {
 					headers: {
 						'content-type' : 'multipart/form-data',
