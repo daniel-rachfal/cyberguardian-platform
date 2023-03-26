@@ -21,7 +21,7 @@ function App() {
         <Routes>
             <Route path="/" element={<HomePage />}/>
             <Route path="/admin/files" element={<ViewAllFiles />}/>
-            <Route path="/upload" element={<UploadPage />} />
+            <Route path="/upload" element={<UploadPage authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
             <Route path="/preview" element={<PreviewPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />

@@ -42,7 +42,6 @@ function Login(props) {
         setButtonDisabled(event.target.value === "" || username === "");
     }
 
-    console.log('Data being sent:', {
         username: username,
         password: password
     });

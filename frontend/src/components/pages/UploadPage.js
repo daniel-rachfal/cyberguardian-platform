@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
 /**
@@ -10,10 +10,19 @@ import axios from 'axios';
  * @author Daniel Rachfal
  * @link https://www.filestack.com/fileschool/react/react-file-upload/
  */
-function UploadPage () {
+function UploadPage (props) {
 
     const [selectedFile, setSelectedFile] = useState();
 	const [isFilePicked, setIsFilePicked] = useState(false);
+
+	//is user authd
+	useEffect(
+        () => {
+            if (localStorage.getItem('token')) {
+                props.handleAuthenticated(true)
+            }
+        }
+        , [])
 
     const changeHandler = (event) => {
 		if(!event.target.files || event.target.files.length)
@@ -72,26 +81,28 @@ function UploadPage () {
 
     return(
         <div>
+			{props.authenticated && <p>logged in!</p>}
+			{!props.authenticated && <p>NOT logged in!</p>}
             <h1>Upload</h1>
-            <input type="file" name="file" onChange={changeHandler} />
-            {isFilePicked ? (
+				<input type="file" name="file" onChange={changeHandler} />
+				{isFilePicked ? (
+					<div>
+						<p>File type: {selectedFile.type}</p>
+					</div>
+				) : (
+					<p>Select a file to show details</p>
+				)}
+				<label htmlFor="privacy">Select privacy level:</label>
+				<select name="privacy" id="privacy">
+					<option value="1">Public</option>
+					<option value="2">Private</option>
+				</select>
 				<div>
-					<p>File type: {selectedFile.type}</p>
+					<button onClick={handleSubmission}>Submit</button>
 				</div>
-			) : (
-				<p>Select a file to show details</p>
-			)}
-			<label htmlFor="privacy">Select privacy level:</label>
-			<select name="privacy" id="privacy">
-				<option value="1">Public</option>
-				<option value="2">Private</option>
-			</select>
-			<div>
-				<button onClick={handleSubmission}>Submit</button>
-			</div>
-			<div id="uploadFeedback">
-
-			</div>
+				<div id="uploadFeedback">
+				</div>
+            
         </div>
     );
 }
