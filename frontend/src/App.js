@@ -24,7 +24,7 @@ function App() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/preview" element={<PreviewPage />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login home={<HomePage />} authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
+            <Route path="/login" element={<Login authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
         </Routes>
     </div>
   );
