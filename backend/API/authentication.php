@@ -36,7 +36,7 @@ class Authenticate extends Endpoint
  
  
     protected function initialiseSQL() {
-        $sql = "SELECT id, username AS username, password FROM users WHERE username = :username";
+        $sql = "SELECT id, username AS username, password, is_admin AS status FROM users WHERE username = :username";
         $this->setSQL($sql);
         $this->setSQLParams(['username'=>$_SERVER['PHP_AUTH_USER']]);
     }
@@ -81,6 +81,7 @@ class Authenticate extends Endpoint
           'iss' => $_SERVER['HTTP_HOST'],
           'id' => $queryResult[0]['id'],
           'username' => $queryResult[0]['username'],
+          'status' => $queryResult[0]['status'],
         ];
              
         $jwt = JWT::encode($tokenPayload, $secretKey, 'HS256');

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -27,7 +29,6 @@ const SignUp = () => {
         })
         .then(
             (response) => {
-              console.log(response.text())
                 return response.json()
             }
         )
@@ -36,6 +37,7 @@ const SignUp = () => {
             console.log(data);
             if (data.message === 'success') {
               alert('Registration successful! Please log in.');
+              navigate("/login");
             } else {
               alert('Registration failed. Please try again.');
             }

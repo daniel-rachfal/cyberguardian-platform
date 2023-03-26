@@ -11,7 +11,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Buffer } from 'buffer';
-import HomePage from './HomePage';
+import { useNavigate } from "react-router-dom";
 
 function Login(props) {
 
@@ -20,7 +20,8 @@ function Login(props) {
     const [usernameValid, setUsernameValid] = useState(false);
     const [passwordValid, setPasswordValid] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
-    const [loggedInUser, setLoggedInUser] = useState(null);
+    const navigate = useNavigate();
+
 
     useEffect(
         () => {
@@ -60,20 +61,20 @@ function Login(props) {
             })
             .then(
                 (response) => {
-                    console.log(response.text());
-                    return response.json()
+                    return response.json();
                 }
             )
             .then(
                 (json) => {
-                    console.log(json);
-                    if (json.data.message === "success") {
+                    if (json.message === "success") {
                         props.handleAuthenticated(true);
                         localStorage.setItem('token', json.data.token);
-                        alert("Login successful!");
-                        setLoggedInUser(username);
-                    } else {
-                        alert("Invalid username or password.");
+                        localStorage.setItem('username', username);
+                        alert("Successful login!")
+                        navigate("/");
+                    }
+                    else {
+                        alert("Unsuccessful login!")
                     }
 
                 }
@@ -91,7 +92,7 @@ function Login(props) {
         setUsername("");
         setPassword("");
         localStorage.removeItem('token');
-        setLoggedInUser(null);
+        localStorage.removeItem('username');
     }
 
     return (
@@ -99,7 +100,7 @@ function Login(props) {
         <div>
             {props.authenticated &&
                 <div>
-                    <div>Logged in as: {loggedInUser}</div>
+                    <div>Logged in as: {localStorage.getItem('username')}</div>
                     <div className="d-flex justify-content-center">
                         <button type="button" className="col-auto btn btn-primary btn-md ms-3" onClick={handleSignOut}>Sign out</button>
                     </div>
