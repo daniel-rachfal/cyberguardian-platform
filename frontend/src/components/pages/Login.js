@@ -41,12 +41,13 @@ function Login(props) {
         setPasswordValid(event.target.value !== "");
         setButtonDisabled(event.target.value === "" || username === "");
     }
-
-        username: username,
-        password: password
-    });
     
     const handleClick = () => {
+
+        console.log('data being sent: ',{
+            username: username,
+            password: password,
+        });
 
         const encodedString = Buffer.from(
             username + ":" + password
