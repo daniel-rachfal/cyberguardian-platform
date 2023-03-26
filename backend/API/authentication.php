@@ -1,6 +1,8 @@
 <?php 
 define('SECRET', "R7Cgb9ruh:a3~+Y;H1XC8?`Im^BA]`");
 use FirebaseJWT\JWT;
+
+header("Access-Control-Allow-Headers: Authorization");
 /**
  * Authenticate username and password
  *
@@ -23,7 +25,7 @@ class Authenticate extends Endpoint
         
         $data['token'] = $this->createJWT($queryResult);
  
-        http_response_code(503);
+        http_response_code(201);
  
         $this->setData( array(
           "length" => 0, 
@@ -34,7 +36,7 @@ class Authenticate extends Endpoint
  
  
     protected function initialiseSQL() {
-        $sql = "SELECT account_id, username AS username, password FROM account WHERE username = :username";
+        $sql = "SELECT id, username AS username, password FROM users WHERE username = :username";
         $this->setSQL($sql);
         $this->setSQLParams(['username'=>$_SERVER['PHP_AUTH_USER']]);
     }
@@ -77,7 +79,7 @@ class Authenticate extends Endpoint
           'iat' => $time,
           'exp' => strtotime('+1 day', $time),
           'iss' => $_SERVER['HTTP_HOST'],
-          'id' => $queryResult[0]['account_id'],
+          'id' => $queryResult[0]['id'],
           'username' => $queryResult[0]['username'],
         ];
              

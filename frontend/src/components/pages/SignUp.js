@@ -6,24 +6,53 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleClick = (event) => {
     event.preventDefault();
+
     const formData = new FormData();
     formData.append('username', username);
     formData.append('email', email);
     formData.append('password', password);
-    const response = await fetch('/registration.php', {
-    method: 'POST',
-    body: formData
-    });
-  const data = await response.json();
-  console.log(data);
+
+    console.log('Data being sent:', {
+      username: username,
+      email: email,
+      password: password
+  });
+
+    fetch("http://localhost:8888/registration",
+        {
+            method: 'POST',
+            body: formData
+        })
+        .then(
+            (response) => {
+              console.log(response.text())
+                return response.json()
+            }
+        )
+        .then(
+          (data) => {
+            console.log(data);
+            if (data.message === 'success') {
+              alert('Registration successful! Please log in.');
+            } else {
+              alert('Registration failed. Please try again.');
+            }
+          }
+
+        )
+        .catch(
+            (e) => {
+                console.log(e.message)
+            }
+        )
   };
 
   return (
     <div className="container mt-5">
       <h2 className="text-center">Sign Up</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleClick}>
         <FormGroup>
           <Form.Label>Username:</Form.Label>
           <FormControl
@@ -51,7 +80,7 @@ const SignUp = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </FormGroup>
-        <Button variant="primary" type="submit" block>Sign Up</Button>
+        <Button variant="primary" type="submit" block = "true">Sign Up</Button>
       </Form>
     </div>
   );

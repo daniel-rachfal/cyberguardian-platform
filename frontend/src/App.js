@@ -7,8 +7,14 @@ import Login from './components/pages/Login';
 import Nav from './components/pages/Nav';
 import PreviewPage from './components/pages/PreviewPage';
 import { Routes, Route } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
 
 function App() {
+
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const handleAuthenticated = (isAuthenticated) => {setAuthenticated(isAuthenticated)}
+
   return (
     <div className="App">
         <Nav />
@@ -18,7 +24,7 @@ function App() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/preview" element={<PreviewPage />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login home={<HomePage />} authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
         </Routes>
     </div>
   );

@@ -26,7 +26,7 @@ class Registration extends Endpoint {
     
         if (isset($_POST['username'])) {
             $username = filter_var($_POST['username'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            if (strlen($username) > 0) {
+            if (strlen($username) > 3) {
                 $params[':username'] = $username;
             } 
             else {

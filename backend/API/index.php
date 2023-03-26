@@ -8,6 +8,7 @@ error_reporting(E_ALL);
  * no idea really
  * 
  * @author Jack Wilde w20022384
+ * @author Nikitas Kaouslidis w20006928
  */
 include 'uploadDB.php';
 include 'clienterrorexception.php';
@@ -16,6 +17,7 @@ include 'base.php';
 include 'authentication.php';
 include 'registration.php';
 include 'files.php';
+include 'firebasejwt/jwt.php';
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
@@ -23,6 +25,10 @@ header("Access-Control-Allow-Headers: *");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     die();
+}
+
+if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
+    exit(0);
 }
 
 $url = $_SERVER['REQUEST_URI'];
