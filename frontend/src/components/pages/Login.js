@@ -12,6 +12,7 @@
 import React, { useState, useEffect } from 'react';
 import { Buffer } from 'buffer';
 import { useNavigate } from "react-router-dom";
+import { BASE_API_URL } from '../Api.js';
 
 function Login(props) {
 
@@ -54,7 +55,7 @@ function Login(props) {
             username + ":" + password
         ).toString('base64');
 
-        fetch("http://localhost:8888/login",
+        fetch(BASE_API_URL + "/login",
             {
                 method: 'POST',
                 headers: new Headers({ "Authorization": "Basic " + encodedString })
