@@ -106,7 +106,7 @@ function DeleteButton({ fileId, onDelete, onFailure }) {
     );
   }
 
-function ViewAllFiles() {
+function FilesPage() {
     const [files, setFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); 
@@ -185,4 +185,4 @@ function ViewAllFiles() {
     );
 }
 
-export default ViewAllFiles;
+export default FilesPage;

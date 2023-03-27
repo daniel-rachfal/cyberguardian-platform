@@ -17,6 +17,7 @@ include 'base.php';
 include 'authentication.php';
 include 'registration.php';
 include 'files.php';
+include 'users.php';
 include 'firebasejwt/jwt.php';
 
 header("Content-Type: application/json; charset=UTF-8");
@@ -27,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     die();
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'OPTIONS'){
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit(0);
 }
 
@@ -74,6 +75,11 @@ try {
         case 'updateFileVisibility/':
             $output = new Files;
             $output->updateFileVisibility();
+            break;
+        case 'users':
+        case 'users/':
+            $output = new Users;
+            $output->getUsers();
             break;
             // Invalid Path
         default:
