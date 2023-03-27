@@ -35,6 +35,8 @@ function UploadPage (props) {
 
     const handleSubmission = () => {
 		var vis = document.getElementById("privacy");
+		var feedback = document.getElementById("uploadFeedback");
+		feedback.innerHTML = "";
 		//if a file has been selected
 		if (isFilePicked)
 		{
@@ -64,12 +66,21 @@ function UploadPage (props) {
 				//send request to API
 				axios.post(url, formData, config).then((response) => {
 					console.log(response.data);
+					if(response.data.message == "Success")
+					{
+						feedback.innerHTML = "File uploaded!"
+					}
+					else
+					{
+						feedback.innerHTML = "There was an error uploading the file!"
+					}
 				});
 			}
 			//file isn't a suitable type
 			else
 			{
 				console.log("file type not allowed!");
+				document.getElementById("uploadFeedback").innerHTML = "Error uploading file: This file type isn't allowed!"
 			}
 			
 		}
@@ -85,7 +96,6 @@ function UploadPage (props) {
 			<h1>Upload</h1>
 			{props.authenticated && 
 			<div>
-				<p>logged in!</p>
 				<input type="file" name="file" onChange={changeHandler} />
 				{isFilePicked ? (
 					<div>
@@ -102,8 +112,8 @@ function UploadPage (props) {
 				<div>
 					<button onClick={handleSubmission}>Submit</button>
 				</div>
-				<div id="uploadFeedback">
-					<p></p>
+				<div>
+					<p id="uploadFeedback"></p>
 				</div>
 			</div>
 			}
