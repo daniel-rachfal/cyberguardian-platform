@@ -82,9 +82,10 @@ function UploadPage (props) {
 
     return(
         <div>
-			{props.authenticated && <p>logged in!</p>}
-			{!props.authenticated && <p>NOT logged in!</p>}
-            <h1>Upload</h1>
+			<h1>Upload</h1>
+			{props.authenticated && 
+			<div>
+				<p>logged in!</p>
 				<input type="file" name="file" onChange={changeHandler} />
 				{isFilePicked ? (
 					<div>
@@ -102,7 +103,11 @@ function UploadPage (props) {
 					<button onClick={handleSubmission}>Submit</button>
 				</div>
 				<div id="uploadFeedback">
+					<p></p>
 				</div>
+			</div>
+			}
+			{!props.authenticated && <p>Please log in to access this page</p>}
             
         </div>
     );
