@@ -1,2 +1,3 @@
 RewriteEngine on
+RewriteRule uploads/ - [L]
 RewriteRule ^(.*)$ index.php
