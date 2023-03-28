@@ -36,6 +36,7 @@ Class UploadDB extends Endpoint
 
         $this->setFileName($_POST['fileName']);
         $this->setVisibility($_POST['visibility']);
+        $this->setCreatedBy($_POST['createdBy']);
         $query= 
         (
         "INSERT INTO files 
@@ -47,7 +48,7 @@ Class UploadDB extends Endpoint
         $params = [];
         $params[':fileName'] = $this->getFileName();
         $params[':visibility'] = $this->getVisibility();
-        $params[':createdBy'] = 1;
+        $params[':createdBy'] = $this->getCreatedBy();
         $this->setSQL($query);
         $this->setSQLParams($params);
     }

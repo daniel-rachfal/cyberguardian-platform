@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { BASE_API_URL } from '../Api.js';
+import jwt_decode from 'jwt-decode';
 
 /**
  * Upload Page
@@ -48,11 +49,16 @@ function UploadPage (props) {
 			{
 				console.log("file whitelist pass");
 
+				var token1 = localStorage.getItem('token');
+				var decoded = jwt_decode(token1);
+				var userid = decoded.id;
+
 				//put file data in formData object
 				const formData = new FormData();
 				formData.append('file', selectedFile);
 				formData.append('fileName', selectedFile.name);
 				formData.append('visibility', vis.value);
+				formData.append('createdBy', userid);
 				console.log("file type:" + selectedFile.type);
 				
 				//request options
