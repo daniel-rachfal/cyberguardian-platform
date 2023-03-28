@@ -7,7 +7,8 @@ header("Access-Control-Allow-Headers: Authorization");
  * Authenticate username and password
  *
  * This class will check a username and password again those held in the 
- * database. Where authentication is successful it will return a JWT.
+ * database. Where authentication is successful it will return a JWT and
+ * admin status.
  *
  * @author Nikitas Kaouslidis w20006928
  */
@@ -23,7 +24,11 @@ class Authenticate extends Endpoint
         $this->validateUsername($queryResult); 
         $this->validatePassword($queryResult);
         
-        $data['token'] = $this->createJWT($queryResult);
+        $data = array(
+            'token' => $this->createJWT($queryResult),
+            'status' => $queryResult[0]['status']
+        );
+        
  
         http_response_code(201);
  

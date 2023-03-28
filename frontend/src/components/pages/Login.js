@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react';
 import { Buffer } from 'buffer';
 import { useNavigate } from "react-router-dom";
 import { BASE_API_URL } from '../Api.js';
+import Alert from 'react-bootstrap/Alert';
 
 function Login(props) {
 
@@ -21,6 +22,9 @@ function Login(props) {
     const [usernameValid, setUsernameValid] = useState(false);
     const [passwordValid, setPasswordValid] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [loginSuccess, setLoginSuccess] = useState(false);
     const navigate = useNavigate();
 
 
@@ -43,13 +47,13 @@ function Login(props) {
         setPasswordValid(event.target.value !== "");
         setButtonDisabled(event.target.value === "" || username === "");
     }
-    
-    const handleClick = () => {
 
-        console.log('data being sent: ',{
-            username: username,
-            password: password,
-        });
+    console.log('Data being sent:', {
+        username: username,
+        password: password
+    });
+
+    const handleClick = () => {
 
         const encodedString = Buffer.from(
             username + ":" + password
@@ -62,27 +66,47 @@ function Login(props) {
             })
             .then(
                 (response) => {
+                    //console.log(response.text());
+                    if (response.status === 200) {
+                        setLoginSuccess(true);
+                    } else {
+                        setLoginSuccess(false);
+                    }
                     return response.json();
                 }
             )
             .then(
                 (json) => {
-                    if (json.message === "success") {
+                    if (json.message === "success" && json.data.status === '0') {
                         props.handleAuthenticated(true);
                         localStorage.setItem('token', json.data.token);
                         localStorage.setItem('username', username);
-                        alert("Successful login!")
+                        localStorage.setItem('loginSuccess', true);
+                        setLoginSuccess(true);
+                        setSuccessMessage("Login successful!");
                         navigate("/");
                     }
+                    if (json.message === "success" && json.data.status === '1') {
+                        props.handleAuthenticated(true);
+                        localStorage.setItem('token', json.data.token);
+                        localStorage.setItem('username', username);
+                        setLoginSuccess(true);
+                        setSuccessMessage("Login successful!");
+                        setTimeout(() => {
+                            navigate("/admin/files");
+                          }, 5000);                    }
                     else {
-                        alert("Unsuccessful login!")
+                        setErrorMessage("Login failed, check your username or password!");
+                        setLoginSuccess(false);
                     }
 
                 }
             )
             .catch(
                 (e) => {
-                    console.log(e.message)
+                    console.log(e.message);
+                    setLoginSuccess(false);
+                    setErrorMessage("Login failed, check your username or password!");
                 }
             )
 
@@ -97,16 +121,27 @@ function Login(props) {
     }
 
     return (
-
         <div>
             {props.authenticated &&
                 <div>
+                    {successMessage && (
+                    <div><Alert variant="success" onClose={() => setSuccessMessage("")} dismissible>
+                        <Alert.Heading>{successMessage}</Alert.Heading>
+                        <p>You are being redirected!</p>
+                        <hr /></Alert>
+                    </div>
+                )}
                     <div>Logged in as: {localStorage.getItem('username')}</div>
                     <div className="d-flex justify-content-center">
                         <button type="button" className="col-auto btn btn-primary btn-md ms-3" onClick={handleSignOut}>Sign out</button>
                     </div>
                 </div>}
             {!props.authenticated && <div className="d-flex flex-column" style={{ height: "82vh" }}>
+                {errorMessage && (
+                    <div><Alert variant="danger" onClose={() => setErrorMessage("")} dismissible>
+                        <Alert.Heading>{errorMessage}</Alert.Heading></Alert>
+                    </div>
+                )}
                 <h2>Login</h2>
                 <form className="d-flex justify-content-center">
                     <div className="row">
