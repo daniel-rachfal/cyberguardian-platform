@@ -95,7 +95,7 @@ Class UploadDB extends Endpoint
     {   
         $allHeaders = getallheaders();
         $authorizationHeader = "";
-              
+        
         if (array_key_exists('Authorization', $allHeaders)) 
         {
           $authorizationHeader = $allHeaders['Authorization'];
