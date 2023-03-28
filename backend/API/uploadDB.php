@@ -7,8 +7,6 @@
  * @author Jack Wilde w20022384
  * @author Daniel Rachfal
  */ 
-use FirebaseJWT\JWT;
-use FirebaseJWT\Key;
 
 include 'database.php';
 include 'endpoint.php';
@@ -58,7 +56,6 @@ Class UploadDB extends Endpoint
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']))
         {
-            $this->validateToken();
             //get file data
             $file = $_FILES['file'];
             $fileName = $_POST['fileName'];
@@ -98,7 +95,6 @@ Class UploadDB extends Endpoint
     //validate token
     private function validateToken() 
     {   
-        $key = SECRET;
         $allHeaders = getallheaders();
         $authorizationHeader = "";
         
@@ -113,19 +109,6 @@ Class UploadDB extends Endpoint
         if (substr($authorizationHeader, 0, 7) != 'Bearer ') 
         {
           throw new ClientErrorException("Bearer token required", 401);
-        }
-
-        $jwt = trim(substr($authorizationHeader, 7));
-
-        try {
-            // 6. Use the JWT class to decode the token
-            $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-        } catch (Exception $e) {
-            throw new ClientErrorException($e->getMessage(), 401);
-        }
-
-        if ($decoded->iss != $_SERVER['HTTP_HOST']) {
-            throw new ClientErrorException("invalid token issuer", 401);
         }
     }
 
