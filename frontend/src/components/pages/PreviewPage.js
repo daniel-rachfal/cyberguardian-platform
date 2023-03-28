@@ -11,11 +11,20 @@ import FileViewer from "react-file-viewer";
 import { CustomErrorComponent } from "custom-error";
 
 import axios from 'axios';
+<php>
+    $url =
+    '/PreviewTests/cat.jpg';
 
-const filePNG = "cat.jpg";
+    $url2 =
+    '/PreviewTests/Hello.pdf';
+</php>
+const filePNG = "<?php echo $url; ?>";
 const typePNG = "jpg";
-const file = "Hello.pdf";
+
+const file = "<?php echo $url2; ?>";
 const type = "pdf";
+
+
 // const file = "excel.xlsx";
 // const type = "xlsx";
 // const file = "proposal.docx";
@@ -40,9 +49,10 @@ function PreviewPage () {
   };
 
   return (
-    <>
+    <div>
       <button onClick={handleView}>View PDF</button>
       {view && (
+        
         <FileViewer
           fileType={type}
           filePath={file}
@@ -60,7 +70,7 @@ function PreviewPage () {
           onError={onError}
         />
       )}
-    </>
+    </div>
   );
 };
 
