@@ -24,11 +24,15 @@ Class UploadDB extends Endpoint
         //if request isnt post, kill
         if($_SERVER['REQUEST_METHOD'] != 'POST')
         {
-            die();
+            throw new ClientErrorException("Invalid request method", 405);
         }
+        if(!(isset($_POST['fileName']) && isset($_POST['visibility'])))
+        {
+            throw new ClientErrorException("Invalid params", 400);
+        }
+
         $this->setFileName($_POST['fileName']);
         $this->setVisibility($_POST['visibility']);
-
         $query= 
         (
         "INSERT INTO files 
@@ -49,6 +53,7 @@ Class UploadDB extends Endpoint
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']))
         {
+            //$this->validateToken();
             //get file data
             $file = $_FILES['file'];
             $fileName = $_POST['fileName'];
@@ -82,6 +87,26 @@ Class UploadDB extends Endpoint
                     "message" => "Error"
                 ));
             }
+        }
+    }
+
+    //validate token
+    private function validateToken() 
+    {   
+        $allHeaders = getallheaders();
+        $authorizationHeader = "";
+              
+        if (array_key_exists('Authorization', $allHeaders)) 
+        {
+          $authorizationHeader = $allHeaders['Authorization'];
+        } elseif (array_key_exists('authorization', $allHeaders)) 
+        {
+          $authorizationHeader = $allHeaders['authorization'];
+        }
+              
+        if (substr($authorizationHeader, 0, 7) != 'Bearer ') 
+        {
+          throw new ClientErrorException("Bearer token required", 401);
         }
     }
 

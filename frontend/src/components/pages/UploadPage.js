@@ -57,9 +57,11 @@ function UploadPage (props) {
 				
 				//request options
 				const url = BASE_API_URL + "/upload";
+				const token = localStorage.getItem('token');
 				const config = {
 					headers: {
 						'content-type' : 'multipart/form-data',
+						'Authorization' : 'Bearer ' + token,
 					}
 				}
 
