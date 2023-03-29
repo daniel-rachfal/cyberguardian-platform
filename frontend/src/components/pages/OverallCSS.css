@@ -1,0 +1,31 @@
+img{
+    Width: 80%;
+    height: auto;
+}
+body{
+    background-color: #e0e0e0;
+}
+div{
+    background-color: #dbdbdb;
+}
+
+h1{
+    color: #4e5e6c;
+    font-family: "Times New Roman", serif;
+}
+
+h2{
+    color: #302a2e;
+    font-family: "Times New Roman", serif;
+}
+
+h4{
+    color: #202326;
+    font-family: "Times New Roman", serif;
+}
+
+p{
+    color: #373d42;
+    font-family: "sans-serif";
+    font-size: 18px;
+}
