@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import Alert from 'react-bootstrap/Alert';
+
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleClick = (event) => {
@@ -16,43 +20,54 @@ const SignUp = () => {
     formData.append('email', email);
     formData.append('password', password);
 
-    console.log('Data being sent:', {
-      username: username,
-      email: email,
-      password: password
-  });
-
     fetch("http://localhost:8888/registration",
-        {
-            method: 'POST',
-            body: formData
-        })
-        .then(
-            (response) => {
-                return response.json()
-            }
-        )
-        .then(
-          (data) => {
-            console.log(data);
-            if (data.message === 'success') {
-              alert('Registration successful! Please log in.');
+      {
+        method: 'POST',
+        body: formData
+      })
+      .then(
+        (response) => {
+          return response.json()
+        }
+      )
+      .then(
+        (data) => {
+          if (data.message === 'success') {
+            setSuccessMessage('Registration successful! Please login.');
+            setErrorMessage('');
+            setTimeout(() => {
               navigate("/login");
-            } else {
-              alert('Registration failed. Please try again.');
-            }
+            }, 5000); 
+          } else {
+            setSuccessMessage('');
+            setErrorMessage('Registration failed. Please try again.');
           }
+        }
 
-        )
-        .catch(
-            (e) => {
-                console.log(e.message)
-            }
-        )
+      )
+      .catch(
+        (e) => {
+          console.log(e.message)
+          setSuccessMessage('');
+          setErrorMessage('Registration failed. Please try again.');
+        }
+      )
   };
 
   return (
     <div className="container mt-5">
+      {successMessage && (
+        <div><Alert variant="success" onClose={() => setSuccessMessage("")} dismissible>
+          <Alert.Heading>{successMessage}</Alert.Heading>
+          <p>You are being redirected to the login portal!</p>
+          <hr /></Alert>
+        </div>
+      )}
+      {errorMessage && (
+        <div><Alert variant="danger" onClose={() => setErrorMessage("")} dismissible>
+          <Alert.Heading>{errorMessage}</Alert.Heading></Alert>
+        </div>
+      )}
       <h2 className="text-center">Sign Up</h2>
       <Form onSubmit={handleClick}>
         <FormGroup>
@@ -82,7 +97,7 @@ const SignUp = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
         </FormGroup>
-        <Button variant="primary" type="submit" block = "true">Sign Up</Button>
+        <Button variant="primary" type="submit" block="true">Sign Up</Button>
       </Form>
     </div>
   );

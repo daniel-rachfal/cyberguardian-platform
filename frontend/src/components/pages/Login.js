@@ -48,25 +48,19 @@ function Login(props) {
         setButtonDisabled(event.target.value === "" || username === "");
     }
 
-    console.log('Data being sent:', {
-        username: username,
-        password: password
-    });
-
     const handleClick = () => {
 
         const encodedString = Buffer.from(
             username + ":" + password
         ).toString('base64');
 
-        fetch(BASE_API_URL + "/login",
+        fetch("http://localhost:8888/login",
             {
                 method: 'POST',
                 headers: new Headers({ "Authorization": "Basic " + encodedString })
             })
             .then(
                 (response) => {
-                    //console.log(response.text());
                     if (response.status === 200) {
                         setLoginSuccess(true);
                     } else {
@@ -84,7 +78,9 @@ function Login(props) {
                         localStorage.setItem('loginSuccess', true);
                         setLoginSuccess(true);
                         setSuccessMessage("Login successful!");
-                        navigate("/");
+                        setTimeout(() => {
+                            navigate("/");
+                          }, 5000); 
                     }
                     if (json.message === "success" && json.data.status === '1') {
                         props.handleAuthenticated(true);
