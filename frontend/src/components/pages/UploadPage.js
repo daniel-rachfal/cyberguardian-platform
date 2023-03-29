@@ -57,12 +57,19 @@ function UploadPage (props) {
 				//put file data in formData object
 				const formData = new FormData();
 				formData.append('file', selectedFile);
-				formData.append('fileTitle', title.value);
+
+				//if title input is blank
+				if(title.value === "")
+				{
+					formData.append('fileTitle', selectedFile.name);
+				}
+				else
+				{
+					formData.append('fileTitle', title.value);
+				}
 				formData.append('fileName', selectedFile.name);
 				formData.append('visibility', vis.value);
 				formData.append('createdBy', userid);
-				console.log("file type:" + selectedFile.type);
-				console.log("title: " + title.value);
 				
 				//request options
 				const url = BASE_API_URL + "/upload";
