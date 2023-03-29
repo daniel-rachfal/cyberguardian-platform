@@ -1,4 +1,5 @@
-import {Outlet, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import styles from './Nav.module.css';
 
 /**
  * Placeholder Nav Bar
@@ -9,7 +10,7 @@ import {Outlet, Link} from 'react-router-dom';
  */
 function Nav() {
     return(
-        <div>
+        <div className={styles.menu}>
             <ul>
                 <li><Link to= '/'>Home</Link></li>
                 <li><Link to= '/admin/files'>Files (Admin)</Link></li>

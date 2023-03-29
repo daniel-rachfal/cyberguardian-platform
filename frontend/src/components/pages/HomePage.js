@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
 import React from "react";
 import ReactPlayer from "react-player";
+import styles from "./OverallCSS.css";
 
 /**
- * Placeholder home page component
+ * Home page component
  * 
  * @author Kelsey Andrews
  * @link https://www.npmjs.com/package/react-player
@@ -12,7 +12,7 @@ function HomePage() {
         return (
             <div>
                 <div className="name+slogan">
-                    <h1>The Cyberguardians</h1>
+                    <h1>The CyberGuardians</h1>
                     <h4>Helping Older Adults Stay Safe Online</h4>
                 </div>
                 <div className="About">
@@ -33,13 +33,12 @@ function HomePage() {
                          them to spread the knowledge to their peers and help protect local communities from cyber harm.
                     </p>
                     <p>
-                        <b>If you would like to read more about this research project</b><br/>
+                        <b>If you would like to read more about this research project</b>
                         you can access the two published peer-reviewed academic papers. The links to both the short
-                        paper and the long paper can be seen below.<br/>
-                        The short paper describes the organisation of peer workshops and the long one describes the
-                        whole initiative, including key findings. <br/>
-                        A link to a 5 minute academic presentation and the BBC
-                        news coverage surrounding this project can also be seen below with the links to the papers.
+                        paper and the long paper can be seen below. The short paper describes the organisation of peer
+                        workshops and the long one describes the whole initiative, including key findings. A link to a
+                        5 minute academic presentation and the BBC news coverage surrounding this project can also be
+                        seen below with the links to the papers.
                     </p>
                     <div align = "center">
                         <a href ="https://researchportal.northumbria.ac.uk/ws/portalfiles/portal/31615000/Nicholson.DIS20.CyberGuardians.pdf"
@@ -63,7 +62,7 @@ function HomePage() {
                         What is the best way to pay for items online?<br/>
                         It is best to use a credit card, as there is consumer protection for items costing between £100
                         and £30,000 if something goes wrong.<br/><br/>
-                        If I recieve a link to a website in an email, how do i know its safe to click on it?<br/>
+                        If I receive a link to a website in an email, how do i know its safe to click on it?<br/>
                         It may not be safe, so dont click on it. Instead, if its a website you know, access it from your
                         browser.<br/><br/>
                         How safe is it to give personal details Online?<br/>
