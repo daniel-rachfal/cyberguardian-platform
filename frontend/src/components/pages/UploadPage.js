@@ -35,6 +35,7 @@ function UploadPage (props) {
 	};
 
     const handleSubmission = () => {
+		var title = document.getElementById("title");
 		var vis = document.getElementById("privacy");
 		var feedback = document.getElementById("uploadFeedback");
 		feedback.innerHTML = "";
@@ -56,10 +57,12 @@ function UploadPage (props) {
 				//put file data in formData object
 				const formData = new FormData();
 				formData.append('file', selectedFile);
+				formData.append('fileTitle', title.value);
 				formData.append('fileName', selectedFile.name);
 				formData.append('visibility', vis.value);
 				formData.append('createdBy', userid);
 				console.log("file type:" + selectedFile.type);
+				console.log("title: " + title.value);
 				
 				//request options
 				const url = BASE_API_URL + "/upload";
@@ -104,19 +107,14 @@ function UploadPage (props) {
 			<h1>Upload</h1>
 			{props.authenticated && 
 			<div>
-				<input type="file" name="file" onChange={changeHandler} />
-				{isFilePicked ? (
-					<div>
-						<p>File type: {selectedFile.type}</p>
-					</div>
-				) : (
-					<p>Select a file to show details</p>
-				)}
+				<input type="file" name="file" onChange={changeHandler} /><br />
 				<label htmlFor="privacy">Select privacy level:</label>
 				<select name="privacy" id="privacy">
 					<option value="1">Public</option>
 					<option value="2">Private</option>
-				</select>
+				</select><br />
+				<label>Enter file title:</label>
+				<input type="text" id="title" name="title"placeholder="Click to enter text..."></input>
 				<div>
 					<button onClick={handleSubmission}>Submit</button>
 				</div>

@@ -15,6 +15,7 @@ header("Access-Control-Allow-Origin: *");
 
 Class UploadDB extends Endpoint
 {
+    private $fileTitle;
     private $fileName;
     private $visibility;
     private $createdBy;
@@ -34,18 +35,20 @@ Class UploadDB extends Endpoint
             throw new ClientErrorException("Invalid params", 400);
         }
 
+        $this->setfileTitle($_POST['fileTitle']);
         $this->setFileName($_POST['fileName']);
         $this->setVisibility($_POST['visibility']);
         $this->setCreatedBy($_POST['createdBy']);
         $query= 
         (
         "INSERT INTO files 
-        (fileName, visibility, createdBy, createdAt) 
-        VALUES (:fileName, :visibility, :createdBy, ".$date.")"
+        (fileTitle,fileName, visibility, createdBy, createdAt) 
+        VALUES (:fileTitle, :fileName, :visibility, :createdBy, ".$date.")"
         );
 
         //set PDO params
         $params = [];
+        $params[':fileTitle'] = $this->getFileTitle();
         $params[':fileName'] = $this->getFileName();
         $params[':visibility'] = $this->getVisibility();
         $params[':createdBy'] = $this->getCreatedBy();
@@ -135,6 +138,14 @@ Class UploadDB extends Endpoint
 
     protected function getCreatedBy(){
         return $this->createdBy;
+    }
+
+    protected function setFileTitle($fileTitle){
+        $this->fileTitle = $fileTitle;
+    }
+
+    protected function getFileTitle(){
+        return $this->fileTitle;
     }
 }
 
