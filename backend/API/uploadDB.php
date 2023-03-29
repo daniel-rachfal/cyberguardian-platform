@@ -58,6 +58,21 @@ Class UploadDB extends Endpoint
 
     public function uploadFile()
     {
+        $db = new Database("DB/development.sqlite");
+        //select newest file id
+        $query = 
+        (
+            "SELECT id
+            FROM files
+            ORDER BY id DESC
+            LIMIT 1"
+        );
+        $params = [];
+        $data = $db->executeSQL($query, $params);
+        $x = $data[0]['id'];
+        $latest = strval($x);
+        $latest = $latest . "_";
+
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']))
         {
             $this->validateToken();
@@ -74,7 +89,7 @@ Class UploadDB extends Endpoint
             }
 
             //specify file path
-            $filePath = $uploadDir . basename($fileName);
+            $filePath = $uploadDir . $latest . basename($fileName);
 
             // Move the file to the upload directory
             if (move_uploaded_file($file['tmp_name'], $filePath)) {
