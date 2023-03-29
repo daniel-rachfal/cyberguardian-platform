@@ -178,7 +178,6 @@ function FilesPage() {
                                 <tr key={file.id}>
                                     <th scope="row">{file.id}</th>
                                     <td>{file.fileName}</td>
-                                    {/* Only capitalizes the first letter of the string */}
                                     <td style={{textTransform: 'capitalize'}}>
                                         <FileVisibility
                                             fileId={file.id}
