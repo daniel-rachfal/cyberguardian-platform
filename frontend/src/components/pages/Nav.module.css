@@ -3,13 +3,14 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #96928f;
+    background-color: #cccac8;
     box-shadow: 3px 6px 8px #787472;
 }
 
 .menu li {
     float: left;
-    background-color: #96928f;
+    background-color: #d2d0cf;
+    left: -50%;
 }
 
 .menu li a {

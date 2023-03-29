@@ -33,7 +33,7 @@ function HomePage() {
                          them to spread the knowledge to their peers and help protect local communities from cyber harm.
                     </p>
                     <p>
-                        <b>If you would like to read more about this research project</b>
+                        <b>If you would like to read more about this research project </b>
                         you can access the two published peer-reviewed academic papers. The links to both the short
                         paper and the long paper can be seen below. The short paper describes the organisation of peer
                         workshops and the long one describes the whole initiative, including key findings. A link to a
