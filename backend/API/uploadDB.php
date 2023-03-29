@@ -60,6 +60,7 @@ Class UploadDB extends Endpoint
     {
         if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file']))
         {
+            $this->validateToken();
             //get file data
             $file = $_FILES['file'];
             $fileName = $_POST['fileName'];
