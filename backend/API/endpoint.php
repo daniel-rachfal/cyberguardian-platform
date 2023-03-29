@@ -69,7 +69,6 @@ abstract class Endpoint
         $this->setSQLParams([]);
     }
  
- 
     protected function setData($data) {
         $this->data = $data;
     }
@@ -78,4 +77,13 @@ abstract class Endpoint
         return $this->data;
     }
     
+    /**
+     * Used for validating request method by child classes
+     */
+    protected function validateRequestMethod($method)
+    {
+        if ($_SERVER['REQUEST_METHOD'] != $method) {
+            throw new ClientErrorException("Invalid request method", 405);
+        }
+    }
 }

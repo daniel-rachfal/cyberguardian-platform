@@ -69,12 +69,4 @@ class Registration extends Endpoint {
         $this->setSQL($sql);
         $this->setSQLParams($params);
     }
-
-    private function validateRequestMethod($method) {
-        if ($_SERVER['REQUEST_METHOD'] != $method){
-            throw new ClientErrorException("invalid request method", 405);
-        }
-    }
 }
-
-?>

@@ -47,13 +47,6 @@ class Authenticate extends Endpoint
     }
  
  
-    private function validateRequestMethod($method) {
-        if ($_SERVER['REQUEST_METHOD'] != $method){
-            throw new ClientErrorException("invalid request method", 405);
-        }
-    }
- 
- 
     private function validateAuthParameters() {
         if ( !isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ) {
             throw new ClientErrorException("username and password required", 401);

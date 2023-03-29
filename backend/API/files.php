@@ -5,7 +5,7 @@
  * 
  * @author Daniel Rachfal
  */
-class Files
+class Files extends Endpoint
 {
     private $db;
     private $data;
@@ -17,6 +17,8 @@ class Files
 
     public function getFiles()
     {
+        $this->validateRequestMethod("GET");
+
         $sql = "SELECT files.id, files.fileName, files.visibility, files.createdAt, 
         users.id AS createdById, users.email AS createdByEmail, 
         file_visibility.name AS visibility 
@@ -35,6 +37,8 @@ class Files
 
     public function getFile()
     {
+        $this->validateRequestMethod("GET");
+
         $sql = "SELECT files.id, files.fileName, files.visibility, files.createdAt, 
         users.id AS createdById, users.email AS createdByEmail, 
         file_visibility.name AS visibility 
@@ -58,6 +62,8 @@ class Files
 
     public function deleteFile()
     {
+        $this->validateRequestMethod("POST");
+
         $sql = "DELETE FROM files WHERE id = :file_id";
 
         $sqlParams = ([
@@ -83,6 +89,8 @@ class Files
 
     public function updateFileVisibility()
     {
+        $this->validateRequestMethod("POST");
+
         if (!in_array($_REQUEST["visibility"], [1, 2])) {
             $this->setData(array(
                 "data" => "null",
@@ -115,7 +123,7 @@ class Files
         }
     }
 
-    private function setData($data)
+    protected function setData($data)
     {
         $this->data = $data;
     }
