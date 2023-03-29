@@ -13,6 +13,7 @@ function UsersPage() {
     const [users, setUsers] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); 
+    const [searchTerm, setSearchTerm] = useState("");
 
     // Fetch the files from the API
     useEffect(() => {
@@ -26,13 +27,25 @@ function UsersPage() {
             })
     }, []);
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value.toLowerCase());
+    }
+
+    const searchFilter = (user) => {
+        if (user.username ? user.username.toLowerCase().includes(searchTerm) : false) {
+            return true;
+        } else if (user.email ? user.email.toLowerCase().includes(searchTerm) : false) {
+            return true;
+        }
+    }
+
     return (
         <div className="container">
             <div className="card card-primary">
                 <div className="card-header">
-                    View All Users
+                    <h2>View All Users</h2>
                 </div>
-                <div className="card-body">
+                <div className="card-body bg-white">
                     {/* Only render success message and error message if they're not null */}
                     {successMessage !== "" ? 
                     <div className="bg-success rounded">
@@ -42,7 +55,8 @@ function UsersPage() {
                     <div className="bg-danger rounded">
                         <p className="p-2 fw-bold">{errorMessage}</p> 
                     </div> : null}
-                    <div class="table-responsive">
+                    <input type="text" className="form-control m-1" placeholder="Search through users" onChange={handleSearch}/>
+                    <div className="table-responsive bg-white">
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -54,12 +68,12 @@ function UsersPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.map((user) => (
+                                {users.filter(searchFilter).map((user) => (
                                     <tr key={user.id}>
                                         <th scope="row">{user.id}</th>
                                         <td>{user.username}</td>   
                                         <td>{user.email}</td>
-                                        <td><td><Moment unix format="DD/MM/YYYY hh:mm">{user.createdAt}</Moment></td></td>
+                                        <td><Moment unix format="DD/MM/YYYY hh:mm">{user.createdAt}</Moment></td>
                                         <td>{user.is_admin ? "Yes" : "No"}</td>
                                     </tr>
                                 ))}

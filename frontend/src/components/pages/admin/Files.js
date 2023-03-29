@@ -48,7 +48,6 @@ function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
     }
 
     return (
-        <div>
           <select
             id="visibility-select"
             value={selectedOption}
@@ -61,7 +60,6 @@ function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
               </option>
             ))}
           </select>
-        </div>
       );
 }
 
@@ -109,7 +107,8 @@ function DeleteButton({ fileId, onDelete, onFailure }) {
 function FilesPage() {
     const [files, setFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState(""); 
+    const [successMessage, setSuccessMessage] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleDelete = (message, fileId) => {
         const updatedFiles = files.filter((file) => file.id !== fileId);
@@ -129,25 +128,42 @@ function FilesPage() {
             })
     }, []);
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value.toLowerCase());
+    }
+
+    const searchFilter = (file) => {
+        if (file.fileName ? file.fileName.toLowerCase().includes(searchTerm) : false) {
+            return true;
+        } else if (file.createdByEmail ? file.createdByEmail.toLowerCase().includes(searchTerm) : false) {
+            return true;
+        } else if (file.id ? file.id.toString().toLowerCase().includes(searchTerm) : false) {
+            return true;
+        }
+    }
+
     return (
         <div className="container">
             <div className="card card-primary">
                 <div className="card-header">
-                    View All Files
+                    <h2>View All Files</h2>
                 </div>
-                <div className="card-body">
+                <div className="card-body bg-white">
                     {/* Only render success message and error message if they're not null */}
                     {successMessage !== "" ? 
-                    <div className="bg-success rounded">
+                    <div className="p-0 bg-success rounded">
                         <p className="p-2 fw-bold text-light">{successMessage}</p>
                     </div> : null}
                     {errorMessage !== "" ? 
-                    <div className="bg-danger rounded">
+                    <div className="p-0 bg-danger rounded">
                         <p className="p-2 fw-bold">{errorMessage}</p> 
                     </div> : null}
+                    <input type="text" className="form-control m-1" placeholder="Search through files" onChange={handleSearch}/>
+                    <div className="table-responsive bg-white">
                     <table className="table table-striped">
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>File Name</th>
                                 <th>Visibility</th>
                                 <th>Created By</th>
@@ -156,8 +172,9 @@ function FilesPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {files.map((file) => (
+                            {files.filter(searchFilter).map((file) => (
                                 <tr key={file.id}>
+                                    <th scope="row">{file.id}</th>
                                     <td>{file.fileName}</td>
                                     {/* Only capitalizes the first letter of the string */}
                                     <td style={{textTransform: 'capitalize'}}>
@@ -179,6 +196,7 @@ function FilesPage() {
                             ))}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
