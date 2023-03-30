@@ -10,6 +10,7 @@ import PreviewPage from './components/pages/PreviewPage';
 import FilesPage from './components/pages/Files';
 import { Routes, Route } from 'react-router-dom';
 import React, {useState, useEffect} from 'react';
+import styles from "./components/pages/OverallCSS.css";
 
 function App() {
 
@@ -19,17 +20,19 @@ function App() {
 
   return (
     <div className="App">
-        <Nav />
-        <Routes>
-            <Route path="/" element={<HomePage />}/>
-            <Route path="/admin/files" element={<AdminFilesPage />}/>
-            <Route path="/admin/users" element={<UsersPage />}/>
-            <Route path="/files" element={<FilesPage />}/>
-            <Route path="/upload" element={<UploadPage authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
-            <Route path="/preview" element={<PreviewPage />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
-        </Routes>
+        <div className={styles}>
+            <Nav />
+            <Routes>
+                <Route path="/" element={<HomePage />}/>
+                <Route path="/admin/files" element={<AdminFilesPage />}/>
+                <Route path="/admin/users" element={<UsersPage />}/>
+                <Route path="/files" element={<FilesPage />}/>
+                <Route path="/upload" element={<UploadPage authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
+                <Route path="/preview" element={<PreviewPage />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/login" element={<Login authenticated={authenticated} handleAuthenticated={setAuthenticated} />} />
+            </Routes>
+        </div>
     </div>
   );
 }

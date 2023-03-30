@@ -12,18 +12,22 @@ div{
 }
 
 h1{
-    color: #4e5e6c;
+    color: #172664;
     font-family: "Times New Roman", serif;
 }
 
 h2{
-    color: #302a2e;
+    color: #172664;
     font-family: "Times New Roman", serif;
 }
 
 h4{
-    color: #202326;
+    color: #1c5d79;
     font-family: "Times New Roman", serif;
+}
+
+h5{
+    color: #1c5d79;
 }
 
 p{
