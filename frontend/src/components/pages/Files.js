@@ -95,7 +95,7 @@ function FilesPage() {
                     <table className="table table-striped">
                         <thead>
                             <tr>
-                                <th>File Name</th>
+                                <th>File Title</th>
                                 <th>Visibility</th>
                                 <th>Created By</th>
                                 <th>Created At</th>
@@ -108,7 +108,7 @@ function FilesPage() {
                             .sort((a, b) => b.createdAt - a.createdAt)
                             .map((file) => (
                                 <tr key={file.id}>
-                                    <td>{file.fileName}</td>
+                                    <td>{file.fileTitle}</td>
                                     <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
