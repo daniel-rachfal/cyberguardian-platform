@@ -49,16 +49,18 @@ function HomePage() {
                     </p>
                     <div align = "center">
                         <a href ="https://researchportal.northumbria.ac.uk/ws/portalfiles/portal/31615000/Nicholson.DIS20.CyberGuardians.pdf"
-                        >The short paper describing the organisation of peer workshops.</a> <br/>
+                           target="_blank">The short paper describing the organisation of peer workshops.</a> <br/>
                         <a href = "https://researchportal.northumbria.ac.uk/ws/portalfiles/portal/53900115/Nicholson.CHI21.CyberGuardians.pdf"
-                        >The long paper describing the whole initiative, including key findings.</a> <br/>
-                        <a href = "https://www.youtube.com/watch?v=VQNCKhxGJ8Q">The 5 minute academic presentation.</a>
+                           target="_blank">The long paper describing the whole initiative, including key findings.</a> <br/>
+                        <a href = "https://www.youtube.com/watch?v=VQNCKhxGJ8Q" target="_blank">
+                            The 5 minute academic presentation.</a>
                         <ReactPlayer
                             url="https://www.youtube.com/embed/HJAIOv_xR00"
                         />
                     </div>
-                    <p>If you would like more information or assistance of a CyberGuardian please contact: <a href =
-                             "mailto:ee.cyberguardians@northumbria.ac.uk">ee.cyberguardians@northumbria.ac.uk</a></p>
+                    <p>If you would like more information or assistance of a CyberGuardian please contact:
+                        <a href ="mailto:ee.cyberguardians@northumbria.ac.uk" target="_blank">
+                            ee.cyberguardians@northumbria.ac.uk</a></p>
                 </div>
                 <br/>
                 <div className = "FAQ">
@@ -87,13 +89,13 @@ function HomePage() {
                         with passwords, identifying scams, and software additions and updates.
                     </p>
                     <img src={Password} alt="person unlocking a tablet"/><br/>
-                    <a href="https://thecyberguardians.co.uk/pages/passwords.html"><h6>Passwords</h6></a>
+                    <a href="https://thecyberguardians.co.uk/pages/passwords.html" target="_blank"><h6>Passwords</h6></a>
                     <p>To learn how to create and manage passwords and prevent attacks, click this link.</p>
                     <img src={Scam} alt="scam being shown with computer keys"/><br/>
-                    <a href="https://thecyberguardians.co.uk/pages/scams.html"><h6>Scams</h6></a>
+                    <a href="https://thecyberguardians.co.uk/pages/scams.html" target="_blank"><h6>Scams</h6></a>
                     <p>To learn more about different scams and how to protect yourself, click this link.</p>
                     <img src={Software} alt="person rebooting their computer"/><br/>
-                    <a href="https://thecyberguardians.co.uk/pages/software.html"><h6>Software</h6></a>
+                    <a href="https://thecyberguardians.co.uk/pages/software.html" target="_blank"><h6>Software</h6></a>
                     <p>To learn more about using wifi safely, computer software updates, and antivirus, click this link.</p>
                 </div>
             </div>
