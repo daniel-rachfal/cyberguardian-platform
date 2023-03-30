@@ -109,12 +109,19 @@ function FilesPage() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+    const [userIsAdmin, setUserIsAdmin] = useState(localStorage.getItem("status"))
 
     const handleDelete = (message, fileId) => {
         const updatedFiles = files.filter((file) => file.id !== fileId);
         setFiles(updatedFiles);
         setSuccessMessage(message)
     }
+
+    useEffect(() => {
+        if (!userIsAdmin) {
+            setErrorMessage("You are not authorized to access this page");
+        }
+    })
 
     // Fetch the files from the API
     useEffect(() => {
@@ -158,6 +165,8 @@ function FilesPage() {
                     <div className="p-0 bg-danger rounded">
                         <p className="p-2 fw-bold">{errorMessage}</p> 
                     </div> : null}
+                    {userIsAdmin &&
+                    <div className="bg-white">
                     <input type="text" className="form-control m-1" placeholder="Search through files" onChange={handleSearch}/>
                     <div className="table-responsive bg-white">
                     <table className="table table-striped">
@@ -198,6 +207,8 @@ function FilesPage() {
                         </tbody>
                     </table>
                     </div>
+                    </div>
+                    }
                 </div>
             </div>
         </div>
