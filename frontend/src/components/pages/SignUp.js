@@ -20,7 +20,7 @@ const SignUp = () => {
     formData.append('email', email);
     formData.append('password', password);
 
-    fetch("http://localhost:8888/registration",
+    fetch("https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/registration",
       {
         method: 'POST',
         body: formData

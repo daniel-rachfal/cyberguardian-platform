@@ -54,7 +54,7 @@ function Login(props) {
             username + ":" + password
         ).toString('base64');
 
-        fetch("http://localhost:8888/login",
+        fetch("https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/login",
             {
                 method: 'POST',
                 headers: new Headers({ "Authorization": "Basic " + encodedString })
