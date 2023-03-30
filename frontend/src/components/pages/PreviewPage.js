@@ -2,6 +2,14 @@
  * Page for previewing files
  * 
  * @author Jack Ambler
+ * https://blog.devgenius.io/how-to-use-react-file-previewer-da7427ec1715
+ * 
+ * // TO DO LIST:
+ * // -- LOOP THROUGH DIRECTORY 
+ * //   -- ADD PREVIEW BUTTON FOR EACH ITEM 
+ * //-- POSSIBLY NEED TO IMPORT PHP FROM SEPARATE FILE 
+
+ * 
  */
 
 
@@ -11,18 +19,31 @@ import FileViewer from "react-file-viewer";
 import { CustomErrorComponent } from "custom-error";
 
 import axios from 'axios';
+
 <php>
     $url =
     '/PreviewTests/cat.jpg';
 
+    $fileName = '$url';
+    $fileNameParts = "explode('.', $fileName)";
+    $ext = "end($fileNameParts)";
+    echo $ext;
+
     $url2 =
     '/PreviewTests/Hello.pdf';
-</php>
+
+    $fileName2 = '$url2';
+    $fileNameParts2 = "explode('.', $fileName2)";
+    $ext2 = "end($fileNameParts2)";
+    echo $ext2;
+  </php>
+
+//Gets file url, uses url to get file extension
 const filePNG = "<?php echo $url; ?>";
-const typePNG = "jpg";
+const typePNG = "<?php echo $ext; ?>";
 
 const file = "<?php echo $url2; ?>";
-const type = "pdf";
+const type = "<?php echo $ext2; ?>";
 
 
 // const file = "excel.xlsx";
@@ -34,6 +55,9 @@ const type = "pdf";
 
 function PreviewPage () {
 //const App = () => {
+
+  
+
   const [view, setView] = useState(false);
   const [viewImage, setView2] = useState(false);
 
@@ -50,7 +74,8 @@ function PreviewPage () {
 
   return (
     <div>
-      <button onClick={handleView}>View PDF</button>
+      <ul>
+      <li><button onClick={handleView}>View File</button></li>
       {view && (
         
         <FileViewer
@@ -61,7 +86,8 @@ function PreviewPage () {
         />
       )}
 
-<button onClick={handleViewImage}>View Image</button>
+
+<li><button onClick={handleViewImage}>View File</button></li>
       {viewImage && (
         <FileViewer
           fileType={typePNG}
@@ -70,6 +96,16 @@ function PreviewPage () {
           onError={onError}
         />
       )}
+      </ul>
+
+      <php>
+    $directory = 
+    './cyberguardian-platform/backend/API/uploads';
+    $fileList = scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, ?resource $context = null): array|false
+
+    print_r($fileList);
+  </php>
+
     </div>
   );
 };
@@ -85,3 +121,17 @@ export default PreviewPage;
   mimeType: 'application/pdf',
   name: 'test_pdf.pdf' // for download
 }}*/
+
+/*
+
+POSSIBLE DIRECTORY LOOP CODE -- TEST 
+<?php
+$dir = new DirectoryIterator(dirname(__FILE__));
+foreach ($dir as $fileinfo) {
+    if (!$fileinfo->isDot()) {
+        var_dump($fileinfo->getFilename());
+    }
+}
+?>
+*/
+
