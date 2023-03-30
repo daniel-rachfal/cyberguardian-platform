@@ -17,6 +17,7 @@ function Nav() {
                 <li><Link to= '/admin/users'>Users (Admin)</Link></li>
                 <li><Link to= '/files'>Files</Link></li>
                 <li><Link to= '/upload'>Upload</Link></li>
+                <li><Link to= '/preview'>Preview</Link></li>
                 <li><Link to= '/signup'>Sign Up</Link></li>
                 <li><Link to= '/login'>Login</Link></li>
             </ul>
