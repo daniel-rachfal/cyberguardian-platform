@@ -3,12 +3,20 @@ import { BASE_API_URL } from '../Api.js';
 import Moment from 'react-moment';
 import { useNavigate } from "react-router-dom";
 
+
+import { Logger } from "logging-library";
+import FileViewer from "react-file-viewer";
+import { CustomErrorComponent } from "custom-error";
+
+import PreviewPage from './PreviewPage.js';
+
 /**
  * View Files Page
  * 
  * This page is responsible for viewing files for regular users of the platform
  * 
  * @author Daniel Rachfal
+ * Jack Ambler - File Preview
  */
 function FilesPage() {
     const [files, setFiles] = useState([]);
@@ -52,7 +60,20 @@ function FilesPage() {
     const handleView = (file_id) => {
         navigate(`/preview/${file_id}`);
     }
-
+    const [view, setView] = useState(false);
+    const [viewImage, setView2] = useState(false);
+  
+    // const handleView = () => {
+    //   setView(!view);
+    // };
+    const handleViewImage = () => {
+      setView2(!viewImage);
+    };
+  
+    const onError = (e) => {
+      Logger.logError(e, "error in file-viewer");
+    };
+  
     return (
         <div className="container">
             <div className="card card-primary">
@@ -79,6 +100,7 @@ function FilesPage() {
                                 <th>Created By</th>
                                 <th>Created At</th>
                                 <th>Actions</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -90,7 +112,16 @@ function FilesPage() {
                                     <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
-                                    <td><button type="button" class="btn btn-primary" onClick={() => handleView(file.id)}>View File</button></td>
+                                    <td><button type="button" class="btn btn-primary" onClick={() => PreviewPage(file.id)}>View File</button></td>
+                                        {view && (
+                                            
+                                            <FileViewer
+                                            //fileType={type}
+                                            filePath={file}
+                                            errorComponent={CustomErrorComponent}
+                                            onError={onError}
+                                            />
+                                        )}
                                 </tr>
                             ))}
                         </tbody>
@@ -102,4 +133,7 @@ function FilesPage() {
     );
 }
 
+//<th><PreviewPage /></th>
+//<td><button type="button" class="btn btn-primary" onClick={() => handleView(file.id)}>View File</button>
+//<td><PreviewPage /></td>
 export default FilesPage;

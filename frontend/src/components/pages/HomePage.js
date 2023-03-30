@@ -1,11 +1,18 @@
 import React from "react";
 import ReactPlayer from "react-player";
+import CyberCoding from "./img/CyberCoding.jpg";
+import Password from "./img/Password.jpg";
+import Scam from "./img/Scam.jpg";
+import Software from "./img/Software.jpg";
 
 /**
  * Home page component
  * 
  * @author Kelsey Andrews
  * @link https://www.npmjs.com/package/react-player
+ * @link https://www.pexels.com/photo/crop-cyber-spy-hacking-system-while-typing-on-laptop-5935794/
+ * @link https://www.pexels.com/photo/wood-people-art-night-6964171/
+ * @link https://www.pexels.com/photo/a-person-looking-at-a-tablet-screen-with-password-9578527/
  */
 function HomePage() {
         return (
@@ -13,6 +20,7 @@ function HomePage() {
                 <div className="name+slogan">
                     <h1>The CyberGuardians</h1>
                     <h4>Helping Older Adults Stay Safe Online</h4>
+                    <img src={CyberCoding} alt="person writing code on a computer"/>
                 </div>
                 <div className="About">
                     <h5>About the CyberGuardians</h5>
@@ -72,7 +80,22 @@ function HomePage() {
                         to try to access your system. regular upgrades will prevent such attacks to your system.
                     </p>
                 </div>
-
+                <br/>
+                <div className = "alt-resources">
+                    <h5>Alternative resources</h5>
+                    <p>links to pages discussing how to keep safe online will be displayed below. These links will help
+                        with passwords, identifying scams, and software additions and updates.
+                    </p>
+                    <img src={Password} alt="person unlocking a tablet"/><br/>
+                    <a href="https://thecyberguardians.co.uk/pages/passwords.html"><h6>Passwords</h6></a>
+                    <p>To learn how to create and manage passwords and prevent attacks, click this link.</p>
+                    <img src={Scam} alt="scam being shown with computer keys"/><br/>
+                    <a href="https://thecyberguardians.co.uk/pages/scams.html"><h6>Scams</h6></a>
+                    <p>To learn more about different scams and how to protect yourself, click this link.</p>
+                    <img src={Software} alt="person rebooting their computer"/><br/>
+                    <a href="https://thecyberguardians.co.uk/pages/software.html"><h6>Software</h6></a>
+                    <p>To learn more about using wifi safely, computer software updates, and antivirus, click this link.</p>
+                </div>
             </div>
 
         );
