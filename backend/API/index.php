@@ -5,10 +5,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 /**
- * no idea really
+ * Class used for routing and managing endpoints
  * 
  * @author Jack Wilde w20022384
  * @author Nikitas Kaouslidis w20006928
+ * @author Daniel Rachfal
  */
 include 'uploadDB.php';
 include 'clienterrorexception.php';
@@ -26,10 +27,6 @@ header("Access-Control-Allow-Headers: *");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     die();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    exit(0);
 }
 
 $url = $_SERVER['REQUEST_URI'];

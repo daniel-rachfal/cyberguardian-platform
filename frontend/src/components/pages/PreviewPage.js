@@ -18,8 +18,14 @@ import { Logger } from "logging-library";
 import FileViewer from "react-file-viewer";
 import { CustomErrorComponent } from "custom-error";
 
-import axios from 'axios';
+// const file = "excel.xlsx";
+// const type = "xlsx";
+// const file = "proposal.docx";
+// const type = "docx";
+// const file = "new_user_credentials.csv";
+// const type = "csv";
 
+function PreviewPage () {
 <php>
     $url =
     '/PreviewTests/cat.jpg';
@@ -45,18 +51,6 @@ const typePNG = "<?php echo $ext; ?>";
 const file = "<?php echo $url2; ?>";
 const type = "<?php echo $ext2; ?>";
 
-
-// const file = "excel.xlsx";
-// const type = "xlsx";
-// const file = "proposal.docx";
-// const type = "docx";
-// const file = "new_user_credentials.csv";
-// const type = "csv";
-
-function PreviewPage () {
-//const App = () => {
-
-  
 
   const [view, setView] = useState(false);
   const [viewImage, setView2] = useState(false);
@@ -87,24 +81,10 @@ function PreviewPage () {
       )}
 
 
-<li><button onClick={handleViewImage}>View File</button></li>
-      {viewImage && (
-        <FileViewer
-          fileType={typePNG}
-          filePath={filePNG}
-          errorComponent={CustomErrorComponent}
-          onError={onError}
-        />
-      )}
+      
       </ul>
 
-      <php>
-    $directory = 
-    './cyberguardian-platform/backend/API/uploads';
-    $fileList = scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, ?resource $context = null): array|false
-
-    print_r($fileList);
-  </php>
+      
 
     </div>
   );
@@ -133,5 +113,28 @@ foreach ($dir as $fileinfo) {
     }
 }
 ?>
+
+<php>
+    $directory = 
+    './cyberguardian-platform/backend/API/uploads';
+    $fileList = scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, ?resource $context = null): array|false
+
+    print_r($fileList);
+  </php>
+
+
+
+
+  OLD VIEW IMAGE BUTTON
+
+  <li><button onClick={handleViewImage}>View File</button></li>
+      {viewImage && (
+        <FileViewer
+          fileType={typePNG}
+          filePath={filePNG}
+          errorComponent={CustomErrorComponent}
+          onError={onError}
+        />
+        )}
 */
 
