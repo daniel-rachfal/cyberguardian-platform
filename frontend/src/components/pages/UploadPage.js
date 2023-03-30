@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { BASE_API_URL } from '../Api.js';
 import jwt_decode from 'jwt-decode';
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 /**
  * Upload Page
@@ -14,8 +15,9 @@ import jwt_decode from 'jwt-decode';
  */
 function UploadPage (props) {
 
-    const [selectedFile, setSelectedFile] = useState();
+    const [selectedFile, setSelectedFile] = useState('');
 	const [isFilePicked, setIsFilePicked] = useState(false);
+	const [title, setTitle] = useState('');
 
 	//is user authd
 	useEffect(
@@ -34,14 +36,17 @@ function UploadPage (props) {
 		}
 	};
 
-    const handleSubmission = () => {
-		var title = document.getElementById("title");
+    const handleSubmission = (event) => {
+		//stop page reload on submission
+		event.preventDefault();
+
 		var vis = document.getElementById("privacy");
 		var feedback = document.getElementById("uploadFeedback");
 		feedback.innerHTML = "";
 		//if a file has been selected
 		if (isFilePicked)
 		{
+			console.log(selectedFile);
 			//filetype validation(pdf/pptx/docx/doc)
 			if(selectedFile.type === "application/pdf" 
 			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
@@ -49,7 +54,7 @@ function UploadPage (props) {
 			|| selectedFile.type === "application/msword")
 			{
 				console.log("file whitelist pass");
-
+				//get userID from JWT
 				var token1 = localStorage.getItem('token');
 				var decoded = jwt_decode(token1);
 				var userid = decoded.id;
@@ -59,13 +64,15 @@ function UploadPage (props) {
 				formData.append('file', selectedFile);
 
 				//if title input is blank
-				if(title.value === "")
+				if(title === "")
 				{
+					console.log("no title")
 					formData.append('fileTitle', selectedFile.name);
 				}
 				else
 				{
-					formData.append('fileTitle', title.value);
+					console.log("title provided")
+					formData.append('fileTitle', title);
 				}
 				formData.append('fileName', selectedFile.name);
 				formData.append('visibility', vis.value);
@@ -109,21 +116,48 @@ function UploadPage (props) {
 		}
 	};
 
+	var fileData = document.getElementById("file-input");
     return(
         <div>
-			<h1>Upload</h1>
 			{props.authenticated && 
 			<div>
-				<input type="file" name="file" onChange={changeHandler} /><br />
-				<label htmlFor="privacy">Select privacy level:</label>
-				<select name="privacy" id="privacy">
-					<option value="1">Public</option>
-					<option value="2">Private</option>
-				</select><br />
-				<label>Enter file title:</label>
-				<input type="text" id="title" name="title"placeholder="Click to enter text..."></input>
-				<div>
-					<button onClick={handleSubmission}>Submit</button>
+				<div className="container mt-5">
+					<h1>Upload</h1>
+					<Form onSubmit={handleSubmission}>
+						<FormGroup>
+							<Form.Label>File Title:</Form.Label>
+							<FormControl 
+								type="text" 
+								size="lg"
+								placeholder="Enter a file title"
+								value={title} 
+								onChange={(event) => setTitle(event.target.value)}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Form.Label>File:</Form.Label>
+							<FormControl id="file-input"
+								type="file"
+								size="lg"
+								onChange={(event) => 
+								{
+									if(fileData.files[0] !== undefined)
+									{
+										setSelectedFile(fileData.files[0])
+										setIsFilePicked(true)}
+									}
+								}
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Form.Label>Privacy Level:</Form.Label>
+							<Form.Select size="lg" id="privacy"> 
+								<option value="1">Public</option>	
+								<option value="2">Private</option>
+							</Form.Select>
+						</FormGroup>
+						<Button variant='primary' type='submit'>Upload</Button>
+					</Form>
 				</div>
 				<div>
 					<p id="uploadFeedback"></p>
