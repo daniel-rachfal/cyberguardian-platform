@@ -1,5 +1,5 @@
 img{
-    Width: 80%;
+    Width: 250px;
     height: auto;
 }
 body{
@@ -28,10 +28,16 @@ h4{
 
 h5{
     color: #1c5d79;
+    font-family: "Times New Roman", serif;
 }
 
+h6{
+    color: #373d42;
+    font-family: "sans-serif";}
 p{
     color: #373d42;
     font-family: "sans-serif";
     font-size: 18px;
+    width: 80%;
+    padding-left: 20%;
 }
