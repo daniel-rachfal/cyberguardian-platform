@@ -14,6 +14,13 @@ function UsersPage() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); 
     const [searchTerm, setSearchTerm] = useState("");
+    const [userIsAdmin, setUserIsAdmin] = useState(localStorage.getItem("status"))
+
+    useEffect(() => {
+        if (!userIsAdmin) {
+            setErrorMessage("You are not authorized to access this page");
+        }
+    })
 
     // Fetch the files from the API
     useEffect(() => {
@@ -48,13 +55,15 @@ function UsersPage() {
                 <div className="card-body bg-white">
                     {/* Only render success message and error message if they're not null */}
                     {successMessage !== "" ? 
-                    <div className="bg-success rounded">
+                    <div className="p-0 bg-success rounded">
                         <p className="p-2 fw-bold text-light">{successMessage}</p>
                     </div> : null}
                     {errorMessage !== "" ? 
-                    <div className="bg-danger rounded">
+                    <div className="p-0 bg-danger rounded">
                         <p className="p-2 fw-bold">{errorMessage}</p> 
                     </div> : null}
+                    {userIsAdmin &&
+                    <div className="bg-white">
                     <input type="text" className="form-control m-1" placeholder="Search through users" onChange={handleSearch}/>
                     <div className="table-responsive bg-white">
                         <table className="table table-striped">
@@ -80,6 +89,7 @@ function UsersPage() {
                             </tbody>
                         </table>
                     </div>
+                    </div>}
                 </div>
             </div>
         </div>

@@ -20,7 +20,6 @@ include 'registration.php';
 include 'files.php';
 include 'users.php';
 include 'firebasejwt/jwt.php';
-// include 'decodeToken.php';
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
@@ -74,11 +73,6 @@ try {
             $output = new Files;
             $output->updateFileVisibility();
             break;
-            // case 'decodeToken':
-            // case 'decodeToken/':
-            //     $output = new decodeToken;
-            //     $output->decodeToken();
-            //     break;
         case 'users':
         case 'users/':
             $output = new Users;

@@ -86,6 +86,7 @@ function Login(props) {
                         props.handleAuthenticated(true);
                         localStorage.setItem('token', json.data.token);
                         localStorage.setItem('username', username);
+                        localStorage.setItem('status', 1);
                         setLoginSuccess(true);
                         setSuccessMessage("Login successful!");
                         setTimeout(() => {
@@ -114,6 +115,7 @@ function Login(props) {
         setPassword("");
         localStorage.removeItem('token');
         localStorage.removeItem('username');
+        localStorage.removeItem('status');
     }
 
     return (
