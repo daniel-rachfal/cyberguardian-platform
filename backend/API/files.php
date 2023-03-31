@@ -24,7 +24,8 @@ class Files extends Endpoint
         file_visibility.name AS visibility 
             FROM files
             INNER JOIN users ON files.createdBy = users.id
-            INNER JOIN file_visibility ON files.visibility = file_visibility.id";
+            INNER JOIN file_visibility ON files.visibility = file_visibility.id
+            WHERE file_visability.id = 1";
 
         $data = $this->db->executeSQL($sql);
 
@@ -45,7 +46,7 @@ class Files extends Endpoint
             FROM files
             INNER JOIN users ON files.createdBy = users.id
             INNER JOIN file_visibility ON files.visibility = file_visibility.id
-            WHERE files.id = :file_id";
+            WHERE files.id = :file_id AND file_visability.id = 1";
 
         $sqlParams = ([
             ":file_id" => $_REQUEST["file_id"],
