@@ -159,11 +159,11 @@ function FilesPage() {
                     {/* Only render success message and error message if they're not null */}
                     {successMessage !== "" ? 
                     <div className="p-0 bg-success rounded">
-                        <p className="p-2 fw-bold text-light">{successMessage}</p>
+                        <p className="py-2 fw-bold text-light">{successMessage}</p>
                     </div> : null}
                     {errorMessage !== "" ? 
                     <div className="p-0 bg-danger rounded">
-                        <p className="p-2 fw-bold">{errorMessage}</p> 
+                        <p className="py-2 fw-bold">{errorMessage}</p> 
                     </div> : null}
                     {userIsAdmin &&
                     <div className="bg-white">
