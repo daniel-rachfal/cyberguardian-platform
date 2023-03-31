@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * Sign up an account
+ *
+ * This class will check a username, email and password according
+ * to some rules and if everything is correctly written, the records
+ * will be added and stored in the database.
+ * 
+ * 1st check: If username bigger than 3 characters
+ * 2nd check: Validates and sanitises email input
+ * 3rd check: If username bigger than 8 characters
+ *
+ * @author Nikitas Kaouslidis w20006928
+ */
 class Registration extends Endpoint {
     
     public function __construct() {
