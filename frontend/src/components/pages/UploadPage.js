@@ -46,14 +46,12 @@ function UploadPage (props) {
 		//if a file has been selected
 		if (isFilePicked)
 		{
-			console.log(selectedFile);
 			//filetype validation(pdf/pptx/docx/doc)
 			if(selectedFile.type === "application/pdf" 
 			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
 			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" 
 			|| selectedFile.type === "application/msword")
 			{
-				console.log("file whitelist pass");
 				//get userID from JWT
 				var token1 = localStorage.getItem('token');
 				var decoded = jwt_decode(token1);
@@ -66,12 +64,10 @@ function UploadPage (props) {
 				//if title input is blank
 				if(title === "")
 				{
-					console.log("no title")
 					formData.append('fileTitle', selectedFile.name);
 				}
 				else
 				{
-					console.log("title provided")
 					formData.append('fileTitle', title);
 				}
 				formData.append('fileName', selectedFile.name);
@@ -90,7 +86,6 @@ function UploadPage (props) {
 
 				//send request to API
 				axios.post(url, formData, config).then((response) => {
-					console.log(response.data);
 					if(response.data.message == "Success")
 					{
 						feedback.innerHTML = "File uploaded!"
@@ -104,7 +99,6 @@ function UploadPage (props) {
 			//file isn't a suitable type
 			else
 			{
-				console.log("file type not allowed!");
 				document.getElementById("uploadFeedback").innerHTML = "Error uploading file: This file type isn't allowed!"
 			}
 			
@@ -112,7 +106,7 @@ function UploadPage (props) {
 		//if no file selected
 		else
 		{
-			console.log("please select a file!");
+			document.getElementById("uploadFeedback").innerHTML = "Please select a file!"
 		}
 	};
 
@@ -141,10 +135,16 @@ function UploadPage (props) {
 								size="lg"
 								onChange={(event) => 
 								{
-									if(fileData.files[0] !== undefined)
+									if(fileData.files[0])
 									{
-										setSelectedFile(fileData.files[0])
-										setIsFilePicked(true)}
+										setSelectedFile(fileData.files[0]);
+										setIsFilePicked(true);
+									}
+									else
+									{
+										setSelectedFile(null);
+										setIsFilePicked(false);
+									}
 									}
 								}
 							/>
