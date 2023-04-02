@@ -73,7 +73,7 @@ const type = "<?php echo $ext2; ?>";
       {view && (
         
         <FileViewer
-          fileType={type}
+          //fileType={type}
           filePath={file}
           errorComponent={CustomErrorComponent}
           onError={onError}
