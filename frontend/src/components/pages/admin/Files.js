@@ -30,13 +30,14 @@ function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
             })
                 .then((response) => response.json())
                 .then((data) => {
+                    setCurrentVisibility(selectedOption)
                     onSuccess("Visibility changed");
                 })
                 .catch((error) => {
                     onFailure("Something went wrong when changing file visibility")
                   });
             }
-    }, [selectedOption]);
+    }, [selectedOption, currentVisibility]);
 
     const options = [
         { label: "Public", value: "PUBLIC" },
