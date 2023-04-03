@@ -7,7 +7,7 @@ import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 /**
  * Upload Page
  * 
- * Page for uploading files
+ * Page for uploading files, 100mb hardcoded upload limit to prevent hitting default server upload limit 
  * 
  * @author Jack Wilde w20022384
  * @author Daniel Rachfal
@@ -52,49 +52,58 @@ function UploadPage (props) {
 			|| selectedFile.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" 
 			|| selectedFile.type === "application/msword")
 			{
-				//get userID from JWT
-				var token1 = localStorage.getItem('token');
-				var decoded = jwt_decode(token1);
-				var userid = decoded.id;
-
-				//put file data in formData object
-				const formData = new FormData();
-				formData.append('file', selectedFile);
-
-				//if title input is blank
-				if(title === "")
+				//if file is above 100mb upload size limit (CAN CHANGE ON SERVER CONFIG)
+				if(selectedFile.size > 100000000)
 				{
-					formData.append('fileTitle', selectedFile.name);
+					feedback.innerHTML = "That file is too big! Please upload a file less than 100MB.";
 				}
 				else
 				{
-					formData.append('fileTitle', title);
-				}
-				formData.append('fileName', selectedFile.name);
-				formData.append('visibility', vis.value);
-				formData.append('createdBy', userid);
-				
-				//request options
-				const url = BASE_API_URL + "/upload";
-				const token = localStorage.getItem('token');
-				const config = {
-					headers: {
-						'content-type' : 'multipart/form-data',
-						'Authorization' : 'Bearer ' + token,
-					}
-				}
+					//get userID from JWT
+					var token1 = localStorage.getItem('token');
+					var decoded = jwt_decode(token1);
+					var userid = decoded.id;
 
-				//send request to API
-				axios.post(url, formData, config).then((response) => {
-					if(response.data.message == "Success")
+					//put file data in formData object
+					const formData = new FormData();
+					formData.append('file', selectedFile);
+
+					//if title input is blank
+					if(title === "")
 					{
-						feedback.innerHTML = "File uploaded!"
+						formData.append('fileTitle', selectedFile.name);
 					}
 					else
 					{
-						feedback.innerHTML = "There was an error uploading the file!"
+						formData.append('fileTitle', title);
 					}
-				});
+					formData.append('fileName', selectedFile.name);
+					formData.append('visibility', vis.value);
+					formData.append('createdBy', userid);
+					
+					//request options
+					const url = BASE_API_URL + "/upload";
+					const token = localStorage.getItem('token');
+					const config = {
+						headers: {
+							'content-type' : 'multipart/form-data',
+							'Authorization' : 'Bearer ' + token,
+						}
+					}
+
+					//send request to API
+					axios.post(url, formData, config).then((response) => {
+						if(response.data.message == "Success")
+						{
+							feedback.innerHTML = "File uploaded!"
+						}
+						else
+						{
+							feedback.innerHTML = "There was an error uploading the file!"
+						}
+					});
+				}
+				
 			}
 			//file isn't a suitable type
 			else
