@@ -25,15 +25,13 @@ function FilesPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
-    const handleDelete = (message, fileId) => {
-        const updatedFiles = files.filter((file) => file.id !== fileId);
-        setFiles(updatedFiles);
-        setSuccessMessage(message)
-    }
-
     // Fetch the files from the API
     useEffect(() => {
-        fetch (`${BASE_API_URL}/files`)
+        fetch (`${BASE_API_URL}/files`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
             .then((res) => res.json())
             .then((response) => {
                 setFiles(response['data']);

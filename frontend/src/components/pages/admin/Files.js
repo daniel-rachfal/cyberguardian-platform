@@ -25,6 +25,7 @@ function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
                 body: bodyString
             })
@@ -80,6 +81,7 @@ function DeleteButton({ fileId, onDelete, onFailure }) {
         method: "POST",
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
         },
         body: `file_id=${fileId}` 
       })
@@ -126,7 +128,11 @@ function FilesPage() {
 
     // Fetch the files from the API
     useEffect(() => {
-        fetch (`${BASE_API_URL}/files`)
+        fetch (`${BASE_API_URL}/files`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
             .then((res) => res.json())
             .then((response) => {
                 setFiles(response['data']);

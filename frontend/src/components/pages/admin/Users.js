@@ -24,7 +24,11 @@ function UsersPage() {
 
     // Fetch the files from the API
     useEffect(() => {
-        fetch (`${BASE_API_URL}/users`)
+        fetch (`${BASE_API_URL}/users`, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        })
             .then((res) => res.json())
             .then((response) => {
                 setUsers(response['data']);

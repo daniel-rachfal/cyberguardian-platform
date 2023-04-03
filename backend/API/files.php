@@ -1,23 +1,27 @@
 <?php
 
 /**
- * This endpoint is responsible for CRUD functionality for files used in Admin pages
+ * This endpoint is responsible for CRUD functionality for files used in Admin pages as well as the Preview pages
  * 
  * @author Daniel Rachfal
  */
 class Files extends Endpoint
 {
     private $db;
-    private $data;
 
+    // Overriding the constructor as this file is responsible for multiple endpoints
     public function __construct()
     {
         $this->db = new Database("DB/development.sqlite");
     }
 
+    /**
+     * Method for getting all files, requires a valid token
+     */
     public function getFiles()
     {
         $this->validateRequestMethod("GET");
+        $this->validateJWT();
 
         $sql = "SELECT files.id, files.fileName, files.visibility, files.createdAt, 
         users.id AS createdById, users.email AS createdByEmail, 
@@ -35,9 +39,14 @@ class Files extends Endpoint
         ));
     }
 
+    /**
+     * Method for getting a single file, requires a valid token
+     * The request should provide a file_id
+     */
     public function getFile()
     {
         $this->validateRequestMethod("GET");
+        $this->validateJWT();
 
         $sql = "SELECT files.id, files.fileName, files.visibility, files.createdAt, 
         users.id AS createdById, users.email AS createdByEmail, 
@@ -60,9 +69,14 @@ class Files extends Endpoint
         ));
     }
 
+    /**
+     * Method for deleting a file, requires a valid token
+     * The request should provide a file_id
+     */
     public function deleteFile()
     {
         $this->validateRequestMethod("POST");
+        $this->validateJWT();
 
         $sql = "DELETE FROM files WHERE id = :file_id";
 
@@ -87,9 +101,14 @@ class Files extends Endpoint
         }
     }
 
+    /**
+     * Method for updating a file visibility, requires a valid token
+     * The request should provide a file_id and visibility
+     */
     public function updateFileVisibility()
     {
         $this->validateRequestMethod("POST");
+        $this->validateJWT();
 
         if (!in_array($_REQUEST["visibility"], [1, 2])) {
             $this->setData(array(
@@ -121,15 +140,5 @@ class Files extends Endpoint
                 "message" => "Success",
             ));
         }
-    }
-
-    protected function setData($data)
-    {
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
     }
 }
