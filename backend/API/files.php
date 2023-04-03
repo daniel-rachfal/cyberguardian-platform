@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This endpoint is responsible for providing all files, used in Admin functionality
+ * This endpoint is responsible for CRUD functionality for files used in Admin pages
  * 
  * @author Daniel Rachfal
  */
@@ -25,7 +25,6 @@ class Files extends Endpoint
             FROM files
             INNER JOIN users ON files.createdBy = users.id
             INNER JOIN file_visibility ON files.visibility = file_visibility.id";
-//WHERE file_visibility.id = 1";
 
         $data = $this->db->executeSQL($sql);
 
@@ -46,8 +45,8 @@ class Files extends Endpoint
             FROM files
             INNER JOIN users ON files.createdBy = users.id
             INNER JOIN file_visibility ON files.visibility = file_visibility.id
-            WHERE files.id = :file_id AND file_visability.id = 1";
-//WHERE file_visibility.id = 1";
+            WHERE files.id = :file_id";
+
         $sqlParams = ([
             ":file_id" => $_REQUEST["file_id"],
         ]);
