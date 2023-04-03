@@ -181,6 +181,7 @@ function FilesPage() {
                             <tr>
                                 <th>Id</th>
                                 <th>File Name</th>
+                                <th>File Title</th>
                                 <th>Visibility</th>
                                 <th>Created By</th>
                                 <th>Created At</th>
@@ -194,6 +195,7 @@ function FilesPage() {
                                 <tr key={file.id}>
                                     <th scope="row">{file.id}</th>
                                     <td>{file.fileName}</td>
+                                    <td>{file.fileTitle}</td>
                                     <td style={{textTransform: 'capitalize'}}>
                                         <FileVisibility
                                             fileId={file.id}

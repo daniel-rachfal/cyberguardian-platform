@@ -23,7 +23,7 @@ class Files extends Endpoint
         $this->validateRequestMethod("GET");
         $this->validateJWT();
 
-        $sql = "SELECT files.id, files.fileName, files.visibility, files.createdAt, 
+        $sql = "SELECT files.id, files.fileTitle, files.fileName, files.visibility, files.createdAt, 
         users.id AS createdById, users.email AS createdByEmail, 
         file_visibility.name AS visibility 
             FROM files
@@ -48,7 +48,7 @@ class Files extends Endpoint
         $this->validateRequestMethod("GET");
         $this->validateJWT();
 
-        $sql = "SELECT files.id, files.fileName, files.visibility, files.createdAt, 
+        $sql = "SELECT files.id, files.fileTitle, files.fileName, files.visibility, files.createdAt, 
         users.id AS createdById, users.email AS createdByEmail, 
         file_visibility.name AS visibility 
             FROM files
