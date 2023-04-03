@@ -82,8 +82,8 @@ function UsersPage() {
                                         <th scope="row">{user.id}</th>
                                         <td>{user.username}</td>   
                                         <td>{user.email}</td>
-                                        <td><Moment format="DDMM/YYYY hh:mm">{user.createdAt}</Moment></td>
-                                        <td>{user.is_admin ? "Yes" : "No"}</td>
+                                        <td>{user.createdAt}</td>
+                                        <td>{user.is_admin === 1 ? "Yes" : "No"}</td>
                                     </tr>
                                 ))}
                             </tbody>
