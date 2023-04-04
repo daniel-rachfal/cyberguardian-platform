@@ -54,7 +54,7 @@ function FilesPage() {
             return true;
         }
     }
-
+    
     const handleView = (file_id) => {
         navigate(`/preview/${file_id}`);
     }
@@ -71,7 +71,13 @@ function FilesPage() {
     const onError = (e) => {
       Logger.logError(e, "error in file-viewer");
     };
-  
+
+
+    function openTab(){
+        window.open('./backend/API/uploads/${file_id}');
+        window.focus();
+    }
+
     return (
         <div className="container">
             <div className="card card-primary">
@@ -110,16 +116,8 @@ function FilesPage() {
                                     <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
-                                    <td><button type="button" class="btn btn-primary" onClick={() => PreviewPage(file.id)}>View File</button></td>
-                                        {view && (
-                                            
-                                            <FileViewer
-                                            //fileType={type}
-                                            filePath={file}
-                                            errorComponent={CustomErrorComponent}
-                                            onError={onError}
-                                            />
-                                        )}
+                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab()}>View File</button></td>
+                                        
                                 </tr>
                             ))}
                         </tbody>
@@ -134,4 +132,13 @@ function FilesPage() {
 //<th><PreviewPage /></th>
 //<td><button type="button" class="btn btn-primary" onClick={() => handleView(file.id)}>View File</button>
 //<td><PreviewPage /></td>
+//{view && (
+                                            
+/*{ <FileViewer
+//fileType={type}
+filePath={file}
+errorComponent={CustomErrorComponent}
+onError={onError}
+/>
+)} } may need to remove set of {}*/ 
 export default FilesPage;
