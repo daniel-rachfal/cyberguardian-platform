@@ -34,6 +34,11 @@ Windows: http://localhost/cyberguardianplatform/backend/API
 
 Mac: http://localhost:8000
 
+## Notes
+
+The default POST file upload on most systems is set to 128mb, however this will vary from system to system.
+There is a hardcoded limit of 100mb set in /frontend/src/components/pages/UploadPage.js which can be changed.
+
 ## License
 
 None
