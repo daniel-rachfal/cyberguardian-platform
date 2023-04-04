@@ -20,10 +20,10 @@ cyberguardian-platform uses a number of open source projects to work properly:
 
 cyberguardian-platform requires [React](https://react.dev/) to run
 
-Install the dependencies and devDependencies and start the server.
+Install the dependencies and start the server.
 
 ```sh
-cd cyberguardian-plaform
+cd cyberguardian-platform
 npm install
 npm start
 ```
