@@ -74,7 +74,7 @@ function FilesPage() {
 
 
     function openTab(){
-        window.open('./backend/API/uploads/${file_id}');
+        window.open('https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${file_id}');
         window.focus();
     }
 
