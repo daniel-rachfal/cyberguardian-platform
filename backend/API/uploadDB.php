@@ -2,7 +2,7 @@
 /**
  * uploadDB endpoint
  * 
- * work in progress
+ * Functionality for uploading files to server and updating records in DB
  * 
  * @author Jack Wilde w20022384
  * @author Daniel Rachfal

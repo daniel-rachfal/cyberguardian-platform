@@ -28,14 +28,6 @@ function UploadPage (props) {
         }
         , [])
 
-    const changeHandler = (event) => {
-		if(!event.target.files || event.target.files.length)
-		{
-			setSelectedFile(event.target.files[0]);
-			setIsFilePicked(true);
-		}
-	};
-
     const handleSubmission = (event) => {
 		//stop page reload on submission
 		event.preventDefault();
