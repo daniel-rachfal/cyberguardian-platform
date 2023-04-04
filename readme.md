@@ -12,7 +12,6 @@ cyberguardian-platform uses a number of open source projects to work properly:
 
 - [ReactJS] - HTML enhanced for web apps
 - [Axios] - HTTP promise based response client for interacting with API
-- [no idea](link) - words
 
 ## Installation
 
