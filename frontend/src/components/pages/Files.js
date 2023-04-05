@@ -125,9 +125,7 @@ function FilesPage() {
                                     <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
-                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab(file)}>View File</button>
-                                    
-                                        
+                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab(file)}>View File</button></td>
                                 </tr>
                             ))}
                         </tbody>
