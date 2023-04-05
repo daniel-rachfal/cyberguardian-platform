@@ -107,6 +107,23 @@ function DeleteButton({ fileId, onDelete, onFailure }) {
     );
   }
 
+/*
+* Adapted Preview Button from 
+* @author Jack Ambler
+*/
+function PreviewButton({ file }) {
+    
+    function openTab(file){
+        const fileName = file.id + "_" + file.fileName;
+        window.open(`${BASE_API_URL}/uploads/${fileName}`);
+        window.focus();
+    }
+
+    return (
+        <button type="button" class="btn btn-primary btn-sm me-1" onClick={() => openTab(file)}>View File</button>
+    );
+}
+
 function FilesPage() {
     const [files, setFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
@@ -206,7 +223,8 @@ function FilesPage() {
                                     </td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
-                                    <td><DeleteButton 
+                                    <td><PreviewButton file={file}/>
+                                        <DeleteButton 
                                         fileId={file.id}
                                         onDelete={handleDelete}
                                         onFailure={setErrorMessage}
