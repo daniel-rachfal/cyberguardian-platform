@@ -87,7 +87,7 @@ function UsersPage() {
                                         <td>{user.username}</td>   
                                         <td>{user.email}</td>
                                         <td>{user.createdAt}</td>
-                                        <td>{user.is_admin === 1 ? "Yes" : "No"}</td>
+                                        <td>{user.is_admin === "1" ? "Yes" : "No"}</td>
                                     </tr>
                                 ))}
                             </tbody>
