@@ -26,18 +26,15 @@ function UploadPage (props) {
 				var token = localStorage.getItem('token');
 				var decoded = jwt_decode(token);
 				var current = Math.floor(Date.now()/1000);
-				console.log(current + " " + decoded.exp);
 				//if current time is before JWT expiry
 				if(current < decoded.exp)
 				{
 					props.handleAuthenticated(true);
-					console.log("jwt in date");
 				}
 				//if current time is AFTER JWT expiry
 				else
 				{
 					props.handleAuthenticated(false);
-					console.log("jwt expired");
 				}
             }
         }
