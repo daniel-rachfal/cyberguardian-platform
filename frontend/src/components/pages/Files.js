@@ -73,9 +73,16 @@ function FilesPage() {
     };
 
 
-    function openTab(){
-        window.open('https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${file_id}');
+    function openTab(file){
+        const fileToView = file.id + "_" + file.fileName;
+        window.open(`https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${fileToView}`);
         window.focus();
+    }
+    function downloadFile(item, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = item;
+        link.click();
     }
 
     return (
@@ -116,7 +123,8 @@ function FilesPage() {
                                     <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
-                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab()}>View File</button></td>
+                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab(file)}>View File</button>
+                                        <button type="button" class="ml-2 btn btn-primary" onClick={() => downloadFile(`data:file.id + "_" + file.fileName`, "cyberguardians.pdf")}>Download</button></td>
                                         
                                 </tr>
                             ))}
