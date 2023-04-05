@@ -129,7 +129,7 @@ function FilesPage() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
-    const [userIsAdmin, setUserIsAdmin] = useState(localStorage.getItem("status"))
+    const userIsAdmin = localStorage.getItem("status");
 
     const handleDelete = (message, fileId) => {
         const updatedFiles = files.filter((file) => file.id !== fileId);
