@@ -40,14 +40,6 @@ function UploadPage (props) {
         }
         , [])
 
-		const changeHandler = (event) => {
-			if(!event.target.files || event.target.files.length)
-			{
-				setSelectedFile(event.target.files[0]);
-				setIsFilePicked(true);
-			}
-		};
-
     const handleSubmission = (event) => {
 		//stop page reload on submission
 		event.preventDefault();
@@ -131,7 +123,6 @@ function UploadPage (props) {
 		}
 	};
 
-	var fileData = document.getElementById("file-input");
     return(
         <div>
 			{props.authenticated && 
@@ -156,22 +147,23 @@ function UploadPage (props) {
 								size="lg"
 								onChange={(event) => 
 								{
-									if(fileData.files[0])
+									//if a file has been picked by user
+									if(event.target.files[0])
 									{
-										setSelectedFile(fileData.files[0]);
+										setSelectedFile(event.target.files[0]);
 										setIsFilePicked(true);
 									}
 									else
 									{
-										setSelectedFile(null);
+										setSelectedFile('');
 										setIsFilePicked(false);
 									}
 									}
 								}
 							/>
-							<Form.Label muted>
+							<Form.Text muted>
 								Allowed file types: PPTX, DOC, DOCX, PDF
-							</Form.Label>
+							</Form.Text>
 						</FormGroup>
 						<FormGroup>
 							<Form.Label>Privacy Level:</Form.Label>
