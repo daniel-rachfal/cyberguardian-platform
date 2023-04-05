@@ -157,6 +157,9 @@ function UploadPage (props) {
 									}
 								}
 							/>
+							<Form.Label muted>
+								Allowed file types: PPTX, DOC, DOCX, PDF
+							</Form.Label>
 						</FormGroup>
 						<FormGroup>
 							<Form.Label>Privacy Level:</Form.Label>
