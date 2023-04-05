@@ -14,7 +14,7 @@ function UsersPage() {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState(""); 
     const [searchTerm, setSearchTerm] = useState("");
-    const [userIsAdmin, setUserIsAdmin] = useState(localStorage.getItem("status"))
+    const userIsAdmin = localStorage.getItem("status");
 
     useEffect(() => {
         if (!userIsAdmin) {
@@ -81,13 +81,15 @@ function UsersPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.filter(searchFilter).map((user) => (
+                                {users
+                                .sort((a, b) => b.id - a.id)
+                                .filter(searchFilter).map((user) => (
                                     <tr key={user.id}>
                                         <th scope="row">{user.id}</th>
                                         <td>{user.username}</td>   
                                         <td>{user.email}</td>
                                         <td>{user.createdAt}</td>
-                                        <td>{user.is_admin === 1 ? "Yes" : "No"}</td>
+                                        <td>{user.is_admin === "1" ? "Yes" : "No"}</td>
                                     </tr>
                                 ))}
                             </tbody>

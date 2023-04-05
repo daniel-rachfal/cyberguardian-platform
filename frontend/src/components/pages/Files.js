@@ -73,10 +73,19 @@ function FilesPage() {
     };
 
 
-    function openTab(){
-        window.open('https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${file_id}');
+    function openTab(file){
+        const fileToView = file.id + "_" + file.fileName;
+        window.open(`https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${fileToView}`);
         window.focus();
     }
+    function downloadFile(url, fileName) {
+        var link = document.createElement("a");
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
 
     return (
         <div className="container">
@@ -116,8 +125,7 @@ function FilesPage() {
                                     <td style={{textTransform: 'capitalize'}}>{file.visibility.toLowerCase()}</td>
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
-                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab()}>View File</button></td>
-                                        
+                                    <td><button type="button" class="btn btn-primary" onClick={() => openTab(file)}>View File</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -128,7 +136,9 @@ function FilesPage() {
         </div>
     );
 }
-
+//FAILED DOWNLOAD BUTTON
+//<button type="button" class="ms-2 btn btn-primary" onClick={() => downloadFile(`data:https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${file}`, "cyberguardians.pdf")}>Download</button></td>
+                                        
 //<th><PreviewPage /></th>
 //<td><button type="button" class="btn btn-primary" onClick={() => handleView(file.id)}>View File</button>
 //<td><PreviewPage /></td>
