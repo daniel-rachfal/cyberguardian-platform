@@ -81,7 +81,9 @@ function UsersPage() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.filter(searchFilter).map((user) => (
+                                {users
+                                .sort((a, b) => b.id - a.id)
+                                .filter(searchFilter).map((user) => (
                                     <tr key={user.id}>
                                         <th scope="row">{user.id}</th>
                                         <td>{user.username}</td>   

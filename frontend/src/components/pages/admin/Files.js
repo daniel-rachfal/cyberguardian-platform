@@ -207,7 +207,7 @@ function FilesPage() {
                         </thead>
                         <tbody>
                             {files.filter(searchFilter)
-                            .sort((a, b) => b.createdAt - a.createdAt)
+                            .sort((a, b) => b.id - a.id)
                             .map((file) => (
                                 <tr key={file.id}>
                                     <th scope="row">{file.id}</th>
