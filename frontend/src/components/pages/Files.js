@@ -78,12 +78,14 @@ function FilesPage() {
         window.open(`https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${fileToView}`);
         window.focus();
     }
-    function downloadFile(item, name) {
+    function downloadFile(url, fileName) {
         var link = document.createElement("a");
-        link.download = name;
-        link.href = item;
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
         link.click();
-    }
+        document.body.removeChild(link);
+      }
 
     return (
         <div className="container">
@@ -124,7 +126,7 @@ function FilesPage() {
                                     <td>{file.createdByEmail}</td>
                                     <td><Moment unix format="DD/MM/YYYY hh:mm">{file.createdAt}</Moment></td>
                                     <td><button type="button" class="btn btn-primary" onClick={() => openTab(file)}>View File</button>
-                                        <button type="button" class="ml-2 btn btn-primary" onClick={() => downloadFile(`data:file.id + "_" + file.fileName`, "cyberguardians.pdf")}>Download</button></td>
+                                    
                                         
                                 </tr>
                             ))}
@@ -136,7 +138,9 @@ function FilesPage() {
         </div>
     );
 }
-
+//FAILED DOWNLOAD BUTTON
+//<button type="button" class="ms-2 btn btn-primary" onClick={() => downloadFile(`data:https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/uploads/${file}`, "cyberguardians.pdf")}>Download</button></td>
+                                        
 //<th><PreviewPage /></th>
 //<td><button type="button" class="btn btn-primary" onClick={() => handleView(file.id)}>View File</button>
 //<td><PreviewPage /></td>
