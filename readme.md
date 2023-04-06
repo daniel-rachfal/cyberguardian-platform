@@ -15,6 +15,7 @@ cyberguardian-platform uses a number of open source projects to work properly:
 - [React Bootstrap] - Prepackaged styling for forms
 - [Axios] - HTTP promise based response client for interacting with API
 - [FirebaseJWT] - Authentication and login related bits
+- [save video-react] - Displays videos in a basic player for Home Page
 
 ## Installation
 
@@ -47,3 +48,4 @@ None
    [Axios]: <https://axios-http.com/docs/intro>
    [FirebaseJWT]: <https://github.com/firebase/php-jwt>
    [React Bootstrap]: <https://react-bootstrap.github.io/>
+   [save video-react]: <https://video-react.js.org/>

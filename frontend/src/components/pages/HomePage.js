@@ -7,8 +7,10 @@ import Software from "./img/Software.jpg";
 
 /**
  * Home page component
+ *
+ * Acts as a home page. This page will hold information regarding the Cyber Guardians and their work.
  * 
- * @author Kelsey Andrews
+ * @author Kelsey Andrews w20017168
  * @link https://www.npmjs.com/package/react-player
  * @link https://www.pexels.com/photo/crop-cyber-spy-hacking-system-while-typing-on-laptop-5935794/
  * @link https://www.pexels.com/photo/wood-people-art-night-6964171/
@@ -22,6 +24,7 @@ function HomePage() {
                     <h4>Helping Older Adults Stay Safe Online</h4>
                     <img src={CyberCoding} alt="person writing code on a computer"/>
                 </div>
+
                 <div className="About">
                     <h5>About the CyberGuardians</h5>
                     <p>
@@ -62,7 +65,9 @@ function HomePage() {
                         <a href ="mailto:ee.cyberguardians@northumbria.ac.uk" target="_blank">
                             ee.cyberguardians@northumbria.ac.uk</a></p>
                 </div>
+
                 <br/>
+
                 <div className = "FAQ">
                     <h5>Frequently asked Security-Related Questions</h5>
                     <p>Why should I not use the same password for different websites?<br/>
@@ -82,7 +87,9 @@ function HomePage() {
                         to try to access your system. regular upgrades will prevent such attacks to your system.
                     </p>
                 </div>
+
                 <br/>
+
                 <div className = "alt-resources">
                     <h5>Alternative resources</h5>
                     <p>links to pages discussing how to keep safe online will be displayed below. These links will help
@@ -99,7 +106,6 @@ function HomePage() {
                     <p>To learn more about using wifi safely, computer software updates, and antivirus, click this link.</p>
                 </div>
             </div>
-
         );
 }
 

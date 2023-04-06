@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
         <div className={styles}>
-            <Nav />
+            <Nav authenticated={authenticated} handleAuthenticated={setAuthenticated} />
             <Routes>
                 <Route path="/" element={<HomePage />}/>
                 <Route path="/admin/files" element={<AdminFilesPage />}/>
