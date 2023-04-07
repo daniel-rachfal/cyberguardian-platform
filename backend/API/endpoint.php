@@ -124,10 +124,10 @@ abstract class Endpoint
             throw new ClientErrorException("JWT expired", 401);
         }
 
-        //! Check that the issuer is our server
-        // if ($decoded->iss != $_SERVER['HTTP_HOST']) {
-        //     throw new ClientErrorException("JWT issuer invalid", 401);
-        // }
+        // Check that the issuer is our server
+        if ($decoded->iss != $_SERVER['HTTP_HOST']) {
+            throw new ClientErrorException("JWT issuer invalid", 401);
+        }
     }
 
     /**
