@@ -1,14 +1,25 @@
+/**
+@file FilesPage.js
+Admin View All Files Page component.
+This component is responsible for displaying all files on the platform.
+The files are fetched from the API and displayed in a table. An admin can also search
+through the files using the search bar. The component provides file preview,
+visibility change, and deletion functionalities.
+@author Daniel Rachfal
+*/
+
+// Import required libraries and components
 import { useState, useEffect } from 'react';
 import { BASE_API_URL } from '../../Api.js';
 import Moment from 'react-moment';
 
 /**
- * Admin View All Files Page
- * 
- * This page is responsible for viewing all files on the platform
- * 
- * @author Daniel Rachfal
- */
+FileVisibility function component.
+This component is responsible for displaying the visibility status of a file.
+It allows admins to change the visibility status between public and private.
+@param {Object} props - The component properties.
+@returns {JSX.Element} The rendered FileVisibility component.
+*/
 function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
     const [selectedOption, setSelectedOption] = useState(visibility);
     const [currentVisibility, setCurrentVisibility] = useState(visibility);
@@ -65,6 +76,13 @@ function FileVisibility( { fileId, visibility, onSuccess, onFailure } ) {
       );
 }
 
+/**
+DeleteButton function component.
+This component renders a delete button for each file. When clicked, the file
+will be deleted from the database after confirmation.
+@param {Object} props - The component properties.
+@returns {JSX.Element} The rendered DeleteButton component.
+*/
 function DeleteButton({ fileId, onDelete, onFailure }) {
     const [isDeleting, setIsDeleting] = useState(false);
   
@@ -107,12 +125,15 @@ function DeleteButton({ fileId, onDelete, onFailure }) {
     );
   }
 
-/*
-* Adapted Preview Button from 
-* @author Jack Ambler
+/**
+PreviewButton function component.
+This component renders a preview button for each file. When clicked, the file
+will be opened in a new browser tab for preview.
+@param {Object} props - The component properties.
+@returns {JSX.Element} The rendered PreviewButton component.
 */
 function PreviewButton({ file }) {
-    
+    // This code has been adapted from Jack Ambler's
     function openTab(file){
         const fileName = file.id + "_" + file.fileName;
         window.open(`${BASE_API_URL}/uploads/${fileName}`);
@@ -124,6 +145,15 @@ function PreviewButton({ file }) {
     );
 }
 
+/**
+FilesPage function component.
+This component fetches the files data from the API and renders a table with
+the file information. It also provides a search functionality to filter files
+based on file name, email, or ID. The component includes FileVisibility, DeleteButton,
+and PreviewButton components for each file.
+
+@returns {JSX.Element} The rendered FilesPage component.
+*/
 function FilesPage() {
     const [files, setFiles] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
@@ -137,13 +167,14 @@ function FilesPage() {
         setSuccessMessage(message)
     }
 
+    // Check if the user is an admin, if not show an error message
     useEffect(() => {
         if (!userIsAdmin) {
             setErrorMessage("You are not authorized to access this page");
         }
     })
 
-    // Fetch the files from the API
+    // Fetch the files from the API and store them in the files state
     useEffect(() => {
         fetch (`${BASE_API_URL}/files`, {
             headers: {
@@ -159,10 +190,19 @@ function FilesPage() {
             })
     }, []);
 
+    /**
+    Update the searchTerm state with the user's search input.
+    @param {Event} event - The event object containing the user's input.
+    */
     const handleSearch = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
     }
 
+    /**
+    Filter the users based on the searchTerm state.
+    @param {Object} file - The file object containing the user's information.
+    @returns {boolean} True if the file's filename or created by email contains the search term, otherwise false.
+    */
     const searchFilter = (file) => {
         if (file.fileName ? file.fileName.toLowerCase().includes(searchTerm) : false) {
             return true;

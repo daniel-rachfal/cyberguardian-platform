@@ -1,14 +1,23 @@
+/**
+@file UsersPage.js
+Admin Users Page component.
+This component is responsible for displaying and managing all users on the platform.
+The users are fetched from the API and displayed in a table. An admin can also search
+through the users using the search bar.
+@author Daniel Rachfal
+*/
+
+// Import required libraries and components
 import { useState, useEffect } from 'react';
 import { BASE_API_URL } from '../../Api.js';
-import Moment from 'react-moment';
 
 /**
- * Admin Users Page
- * 
- * This page is responsible for viewing and managing all users on the platform
- * 
- * @author Daniel Rachfal
- */
+UsersPage function component.
+This component fetches the users data from the API and renders a table with
+the user information. It also provides a search functionality to filter users
+based on username or email.
+@returns {JSX.Element} The rendered UsersPage component.
+*/
 function UsersPage() {
     const [users, setUsers] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
@@ -16,13 +25,14 @@ function UsersPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const userIsAdmin = localStorage.getItem("status");
 
+    // Check if the user is an admin, if not show an error message
     useEffect(() => {
         if (!userIsAdmin) {
             setErrorMessage("You are not authorized to access this page");
         }
     })
 
-    // Fetch the files from the API
+    // Fetch the users data from the API and store it in the users state
     useEffect(() => {
         fetch (`${BASE_API_URL}/users`, {
             headers: {
@@ -38,10 +48,19 @@ function UsersPage() {
             })
     }, []);
 
+    /**
+    Update the searchTerm state with the user's search input.
+    @param {Event} event - The event object containing the user's input.
+    */
     const handleSearch = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
     }
 
+    /**
+    Filter the users based on the searchTerm state.
+    @param {Object} user - The user object containing the user's information.
+    @returns {boolean} True if the user's username or email contains the search term, otherwise false.
+    */
     const searchFilter = (user) => {
         if (user.username ? user.username.toLowerCase().includes(searchTerm) : false) {
             return true;
@@ -50,6 +69,7 @@ function UsersPage() {
         }
     }
 
+    // Render the UsersPage component
     return (
         <div className="container">
             <div className="card card-primary">
