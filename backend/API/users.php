@@ -5,10 +5,9 @@
  * 
  * @author Daniel Rachfal
  */
-class Users
+class Users extends Endpoint
 {
     private $db;
-    private $data;
 
     public function __construct()
     {
@@ -17,6 +16,9 @@ class Users
 
     public function getUsers()
     {
+        $this->validateRequestMethod("GET");
+        $this->validateJWT();
+
         $sql = "SELECT id, username, email, createdAt, is_admin FROM users";
 
         $data = $this->db->executeSQL($sql);
@@ -26,15 +28,5 @@ class Users
             "length" => count($data),
             "message" => "Success",
         ));
-    }
-
-    private function setData($data)
-    {
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
     }
 }
