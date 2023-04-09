@@ -1,1 +1,1 @@
-export const BASE_API_URL = 'https://thecyberguardians.co.uk/cyberguardian-platform/backend/API'; 
+export const BASE_API_URL = 'http://localhost/cyberguardian-platform/backend/API'; 
