@@ -36,6 +36,27 @@ function Login(props) {
         }
         , [])
 
+        //is user authd
+	useEffect(
+        () => {
+            if (localStorage.getItem('token')) {
+				var token = localStorage.getItem('token');
+				var decoded = jwt_decode(token);
+				var current = Math.floor(Date.now()/1000);
+				//if current time is before JWT expiry
+				if(current < decoded.exp)
+				{
+					props.handleAuthenticated(true);
+				}
+				//if current time is AFTER JWT expiry
+				else
+				{
+					props.handleAuthenticated(false);
+				}
+            }
+        }
+        , [])
+
     const handleUsername = (event) => {
         setUsername(event.target.value);
         setUsernameValid(event.target.value !== "");
@@ -54,7 +75,7 @@ function Login(props) {
             username + ":" + password
         ).toString('base64');
 
-        fetch("https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/login",
+        fetch(`${BASE_API_URL}/login`,
             {
                 method: 'POST',
                 headers: new Headers({ "Authorization": "Basic " + encodedString })

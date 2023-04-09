@@ -12,6 +12,7 @@
 import React, { useState } from 'react';
 import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import { BASE_API_URL } from '../Api.js';
 import Alert from 'react-bootstrap/Alert';
 
 
@@ -31,7 +32,7 @@ const SignUp = () => {
     formData.append('email', email);
     formData.append('password', password);
 
-    fetch("https://thecyberguardians.co.uk/cyberguardian-platform/backend/API/registration",
+    fetch(`${BASE_API_URL}/registration`,
       {
         method: 'POST',
         body: formData
