@@ -3,6 +3,8 @@
 
 ## Features
 
+- Sign Up
+- Login
 - Upload files easily from your browser
 - Set permission levels to restrict who can see your files
 - View uploaded files
@@ -43,7 +45,7 @@ The base path for API calls (set in frontend/src/components/Api.js) may have to 
 For local testing, the link will likely be:
 - Windows: http://localhost/cyberguardian-platform/backend/API
 - Mac/Linux: http://localhost:8000/cyberguardian-platform/backend/API
-   - If using MAMP (XAMPP but for Mac), the port for Nikitas was 8888 http://localhost:8888/cyberguardian-platform/backend/API
+   - If using MAMP (XAMPP but for Mac), the port for Nikitas was 8888: http://localhost:8888/cyberguardian-platform/backend/API
 
 Alternatively, if hosted onto a hosting service such as newnumyspace, an appropriate link should be used. 
 
