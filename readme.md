@@ -21,6 +21,8 @@ cyberguardian-platform uses a number of open source projects to work properly:
 
 cyberguardian-platform requires [React](https://react.dev/) to run
 
+### Frontend Installation
+
 Install the dependencies and start the server.
 
 ```sh
@@ -29,11 +31,14 @@ npm install
 npm start
 ```
 
-The default path URLs follow (set in frontend/src/components/Api.js) may have to be changed depending on your system
+The base path for API calls (set in frontend/src/components/Api.js) may have to be changed depending on your system
 
-Windows: http://localhost/cyberguardianplatform/backend/API
+- Windows: http://localhost/cyberguardian-platform/backend/API
+- Mac/Linux: http://localhost:8000/cyberguardian-platform/backend/API
 
-Mac: http://localhost:8000
+### Backend PHP Installation
+
+Move the backend folder to an appropriate directory/deployment site that your server such as Apache or XAMPP can access. No further configuration is needed as the SQLite database is included with the project.
 
 ## Notes
 
