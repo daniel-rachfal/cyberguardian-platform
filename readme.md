@@ -19,6 +19,7 @@ cyberguardian-platform uses a number of open source projects to work properly:
 - [Axios] - HTTP promise based response client for interacting with API
 - [FirebaseJWT] - Authentication and login related bits
 - [save video-react] - Displays videos in a basic player for Home Page
+- [jwt-decode] - Easily decode JWT for basic validity checks
 
 ## Installation
 
@@ -72,3 +73,4 @@ None
    [FirebaseJWT]: <https://github.com/firebase/php-jwt>
    [React Bootstrap]: <https://react-bootstrap.github.io/>
    [save video-react]: <https://video-react.js.org/>
+   [jwt-decode]: <https://www.npmjs.com/package/jwt-decode>
