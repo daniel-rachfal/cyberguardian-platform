@@ -50,7 +50,7 @@ Alternatively, if hosted onto a hosting service such as newnumyspace, an appropr
 
 ```sh
 cd cyberguardian-platform/frontend
-npm deploy
+npm run build
 ```
 
 Follow the API changes noted in the Frontend Installation section. Deployment files should be generated in the frontend/build folder. Copy the contents of the folder (not the folder itself) along with the .htaccess file located in the root cyberguardian-platform folder. The frontend should be ready to view. 
