@@ -75,7 +75,7 @@ function FilesPage() {
 
     function openTab(file){
         const fileToView = file.id + "_" + file.fileName;
-        window.open(`../../../../backend/API/uploads/${fileToView}`);
+        window.open(`${BASE_API_URL}/uploads/${fileToView}`);
         window.focus();
     }
     function downloadFile(url, fileName) {
