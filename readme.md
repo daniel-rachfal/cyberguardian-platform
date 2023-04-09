@@ -59,6 +59,13 @@ npm run build
 
 Follow the API changes noted in the Frontend Installation section. Deployment files should be generated in the frontend/build folder. Copy the contents of the folder (not the folder itself) along with the .htaccess file located in the root cyberguardian-platform folder. The frontend should be ready to view. 
 
+## Credentials
+
+To test admin and normal users functionality you will need an admin account and a normal user account. For a normal user account you can create your own by signing up on the registration form or you can use the following account:
+
+- Normal user account (Username / Password): presentation / presentation1234
+- Admin account (Username / Password): skydrinka / test56789
+
 ## Notes
 
 The default POST file upload on most systems is set to 128mb, however this will vary from system to system.
