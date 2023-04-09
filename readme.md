@@ -6,6 +6,7 @@
 - Upload files easily from your browser
 - Set permission levels to restrict who can see your files
 - View uploaded files
+- Admin file management system
 
 ## Tech
 
